@@ -1,0 +1,6 @@
+nom,temperature_min,temperature_max,pluviometrie_min,pluviometrie_max,cycle_jours,rendement_moyen
+Arachide,20.0,30.0,500.0,1000.0,120.0,3.0
+Café Arabica,18.0,24.0,1200.0,2000.0,1095.0,1.5
+Haricot,15.0,25.0,600.0,1000.0,90.0,2.5
+Maïs,18.0,30.0,800.0,1200.0,120.0,5.0
+Pomme de terre,15.0,22.0,700.0,1200.0,120.0,25.0
