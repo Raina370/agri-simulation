@@ -31,6 +31,12 @@ def extraire_plage_numerique(texte, motif):
         return float(resultat.group(1).replace(",", ".")), float(resultat.group(2).replace(",", "."))
     return None, None
 
+def extraire_texte_simple(texte, motif):
+    resultat = re.search(motif, texte)
+    if resultat:
+        return resultat.group(1).strip()
+    return None
+
 def parser_fiche(nom_culture, texte):
     donnee = {"nom": nom_culture}
 
@@ -60,6 +66,10 @@ def parser_fiche(nom_culture, texte):
     )
     donnee["rendement_moyen"] = rendement_max
 
+    donnee["sols_recommandes"] = extraire_texte_simple(
+        texte, r"Sols recommandés\s*:\s*(.+)"
+    )
+
     return donnee
 
 
@@ -69,10 +79,10 @@ for nom_culture, nom_fichier in FICHIERS.items():
     texte = extraire_texte(chemin)
     donnee = parser_fiche(nom_culture, texte)
     resultats.append(donnee)
-    print(f"✅ {nom_culture} extrait : {donnee}")
+    print(f" {nom_culture} extrait : {donnee}")
 
 df = pd.DataFrame(resultats)
 chemin_sortie = Path("donnee/csv_extraits/cultures.csv")
 df.to_csv(chemin_sortie, index=False, encoding="utf-8")
-print(f"\n📄 Fichier CSV généré : {chemin_sortie}")
+print(f"\n Fichier CSV généré : {chemin_sortie}")
 print(df)
