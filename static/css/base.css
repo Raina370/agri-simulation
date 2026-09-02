@@ -1,0 +1,277 @@
+:root {
+  --vert-foret: #1F3D2B;
+  --vert-fonce: #16281D;
+  --terre: #8B5E34;
+  --fond: #F5F2D9;
+  --carte: #FFFFFF;
+  --texte: #23281F;
+  --sous-texte: #6B7565;
+  --bordure: #E7E3C9;
+  --bordure-input: #D8D4B8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--fond);
+  color: var(--texte);
+  font-family: "Work Sans", sans-serif;
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  color: var(--vert-foret);
+  margin: 0;
+}
+
+a {
+  color: var(--vert-foret);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* --- Header / Footer --- */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: #FBFAF1;
+  border-bottom: 1px solid var(--bordure);
+}
+
+.header-gauche {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.header-menu {
+  font-size: 1.4rem;
+  color: var(--texte);
+}
+
+.header-logo {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--vert-foret);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.header-connexion {
+  font-size: 0.9rem;
+  color: var(--sous-texte);
+  font-weight: 600;
+}
+
+.site-footer {
+  text-align: center;
+  padding: 2rem 1.5rem 2.5rem 1.5rem;
+  border-top: 1px solid var(--bordure);
+  margin-top: 3rem;
+}
+
+.footer-nom {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  color: var(--vert-foret);
+  margin: 0 0 0.3rem 0;
+}
+
+.footer-slogan {
+  color: var(--sous-texte);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* --- Messages --- */
+
+.message {
+  padding: 0.65rem 0.9rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.message.success {
+  background: #E7F0E4;
+  color: var(--vert-foret);
+}
+
+.message.error {
+  background: #FBE9E2;
+  color: #A0421F;
+}
+
+.message.info {
+  background: #F2EEDB;
+  color: var(--terre);
+}
+
+ul.errorlist {
+  list-style: none;
+  padding: 0;
+  margin: 0.3rem 0 0 0;
+  color: #A0421F;
+  font-size: 0.8rem;
+}
+
+/* --- Composants génériques (pages simples, profil, dashboards) --- */
+
+.page {
+  max-width: 480px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+
+.carte {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-top: 4px solid var(--vert-foret);
+  border-radius: 8px;
+  padding: 2rem;
+}
+
+.dashboard {
+  max-width: 640px;
+  margin: 4rem auto;
+  padding: 0 1.5rem;
+}
+
+form p {
+  margin: 0 0 1.1rem 0;
+}
+
+form label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+form input:not(.input-avec-icone input),
+form select:not(.input-avec-icone select),
+form textarea:not(.input-avec-icone textarea) {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--bordure-input);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+  background: var(--fond);
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+  outline: 2px solid var(--terre);
+  outline-offset: 1px;
+  border-color: var(--vert-foret);
+}
+
+/* --- Champs avec icône (réutilisé sur connexion, inscription, profil) --- */
+
+.champ-icone {
+  margin-bottom: 1.1rem;
+}
+
+.champ-icone label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: var(--texte);
+}
+
+.input-avec-icone {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  border-bottom: 1.5px solid var(--bordure-input);
+  padding-bottom: 0.5rem;
+}
+
+.input-avec-icone i:first-child {
+  color: var(--sous-texte);
+  font-size: 1.1rem;
+  margin-right: 0.6rem;
+  margin-top: 0.15rem;
+}
+
+.input-avec-icone input,
+.input-avec-icone select,
+.input-avec-icone textarea {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.98rem;
+  width: 100%;
+  color: var(--texte);
+  resize: vertical;
+}
+
+.input-avec-icone:focus-within {
+  border-bottom-color: var(--vert-foret);
+}
+
+.toggle-password {
+  cursor: pointer;
+  color: var(--sous-texte);
+  font-size: 1.1rem;
+}
+
+/* --- Boutons / liens génériques --- */
+
+.btn-principal {
+  width: 100%;
+  padding: 0.85rem;
+  background: var(--vert-foret);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background 0.15s ease;
+}
+
+.btn-principal:hover {
+  background: var(--vert-fonce);
+}
+
+.lien-secondaire {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--bordure);
+  font-size: 0.88rem;
+  color: var(--sous-texte);
+}
+
+.lien-mot-de-passe-oublie {
+  display: block;
+  text-align: right;
+  font-size: 0.82rem;
+  margin: 0.6rem 0 1.4rem 0;
+  color: var(--terre);
+}

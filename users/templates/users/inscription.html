@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-
+{% load static %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/auth.css' %}">{% endblock %}
 {% block title %}Créer un compte - AgriSim{% endblock %}
 
 {% block content %}
