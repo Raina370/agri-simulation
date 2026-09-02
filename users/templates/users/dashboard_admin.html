@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Tableau de bord Administrateur{% endblock %}
+
+{% block content %}
+<h1>Espace Administrateur</h1>
+<p>Bienvenue, {{ user.username }}.</p>
+<a href="{% url 'deconnexion' %}">Se déconnecter</a>
+{% endblock %}

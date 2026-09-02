@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Tableau de bord Agriculteur{% endblock %}
+
+{% block content %}
+<h1>Bienvenue, {{ user.first_name }} {{ user.last_name }}</h1>
+<p>Vous êtes connecté en tant qu'agriculteur.</p>
+<a href="{% url 'deconnexion' %}">Se déconnecter</a>
+{% endblock %}

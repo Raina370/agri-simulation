@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Connexion - AgriSim{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+  <div class="auth-carte">
+    <div class="auth-logo">
+      <i class='bx bxs-leaf'></i>
+    </div>
+    <h1>Bienvenue sur AgriSim</h1>
+    <p class="auth-sous-titre">Connectez-vous pour accéder à vos simulations.</p>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+        <div class="champ-icone">
+            <label for="username">Nom d'utilisateur</label>
+            <div class="input-avec-icone">
+                <i class='bx bx-user'></i>
+                <input type="text" name="username" id="username" placeholder="nom.utilisateur" required>
+            </div>
+        </div>
+        <div class="champ-icone">
+            <label for="password">Mot de passe</label>
+            <div class="input-avec-icone">
+                <i class='bx bx-lock-alt'></i>
+                <input type="password" name="password" id="password" placeholder="••••••••" required>
+                <i class='bx bx-hide toggle-password' id="togglePassword"></i>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-principal">
+            Se connecter <i class='bx bx-log-in'></i>
+        </button>
+    </form>
+
+    <p class="lien-secondaire">Nouveau sur la plateforme ? <a href="{% url 'inscription' %}">Créer un compte</a></p>
+  </div>
+</div>
+
+<script>
+  const toggle = document.getElementById('togglePassword');
+  const champMotDePasse = document.getElementById('password');
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      const type = champMotDePasse.getAttribute('type') === 'password' ? 'text' : 'password';
+      champMotDePasse.setAttribute('type', type);
+      this.classList.toggle('bx-hide');
+      this.classList.toggle('bx-show');
+    });
+  }
+</script>
+{% endblock %}

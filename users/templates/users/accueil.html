@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}AgriSim Cameroon - Simulez votre plantation{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="hero-contenu">
+        <h1>Simulez votre plantation avant de cultiver</h1>
+        <p>Optimisez vos rendements  grâce à des données climatiques et agronomiques précises. Une technologie moderne pour des récoltes abondantes.</p>
+        <div class="hero-boutons">
+            <a href="{% url 'connexion' %}" class="btn-accent">Commencer une simulation <i class='bx bx-right-arrow-alt'></i></a>
+            <a href="#catalogue" class="btn-blanc">Découvrir le catalogue</a>
+        </div>
+    </div>
+</section>
+
+<section class="section-outils">
+    <h2>Des outils pensés pour votre terre</h2>
+    <p class="section-intro">Prenez des décisions éclairées basées sur des modèles de simulation adaptés aux spécificités de l'agriculture camerounaise.</p>
+
+    <div class="cartes-outils">
+        <div class="carte-outil">
+            <div class="carte-outil-icone"><i class='bx bx-trending-up'></i></div>
+            <h3>Estimation du rendement</h3>
+            <p>Anticipez vos volumes de récolte en fonction du type de sol, des semences choisies et des itinéraires techniques appliqués.</p>
+        </div>
+        <div class="carte-outil">
+            <div class="carte-outil-icone"><i class='bx bxs-thermometer'></i></div>
+            <h3>Analyse climatique</h3>
+            <p>Visualisez l'impact des prévisions météorologiques locales sur vos cultures pour mieux planifier vos interventions (semis, irrigation).</p>
+        </div>
+        <div class="carte-outil">
+            <div class="carte-outil-icone"><i class='bx bx-bulb'></i></div>
+            <h3>Conseils agricoles</h3>
+            <p>Bénéficiez de recommandations personnalisées basées sur les meilleures pratiques agronomiques.</p>
+        </div>
+    </div>
+</section>
+<section class="section-catalogue" id="catalogue">
+    <h2>Le catalogue des cultures</h2>
+    <p class="section-intro">Explorez les cultures déjà référencées sur AgriSim, avec leurs exigences agronomiques.</p>
+
+    <div class="grille-catalogue">
+        {% for item in cultures_avec_images %}
+        <div class="carte-culture">
+            <img src="{% static item.image %}" alt="{{ item.culture.nom }}" class="carte-culture-image">
+            <div class="carte-culture-contenu">
+                <h3>{{ item.culture.nom }}</h3>
+                <p><i class='bx bx-line-chart'></i> Rendement moyen : {{ item.culture.rendement_moyen }} t/ha</p>
+                <p><i class='bx bx-calendar'></i> Cycle : {{ item.culture.cycle_jours }} jours</p>
+            </div>
+        </div>
+        {% empty %}
+        <p>Aucune culture référencée pour le moment.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section-cta">
+    <h2>Prêt à transformer votre exploitation ?</h2>
+    <p>Rejoignez des centaines d'agriculteurs qui utilisent AgriSim pour sécuriser leurs récoltes.</p>
+    <a href="{% url 'inscription' %}" class="btn-cta">Créer un compte gratuit</a>
+</section>
+
+{% endblock %}

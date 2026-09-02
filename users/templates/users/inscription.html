@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}Créer un compte - AgriSim{% endblock %}
+
+{% block content %}
+<div class="inscription-page">
+  <div class="inscription-layout">
+
+    <div class="inscription-image">
+      <div class="inscription-image-texte">
+        <h2>Cultivez<br>l'avenir.</h2>
+        <p>Rejoignez la plateforme agricole de référence pour optimiser vos rendements grâce à la simulation avancée.</p>
+      </div>
+    </div>
+
+    <div class="inscription-form-panel">
+      <h1>Créer un compte</h1>
+      <p class="auth-sous-titre">Veuillez renseigner vos informations pour débuter.</p>
+
+      {% if messages %}
+          {% for message in messages %}
+              <div class="message {{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+      {% endif %}
+
+      <form method="post" class="auth-form">
+          {% csrf_token %}
+
+          <div class="champ-icone">
+              <label for="{{ form.last_name.id_for_label }}">Nom</label>
+              <div class="input-avec-icone"><i class='bx bx-user'></i>{{ form.last_name }}</div>
+              {{ form.last_name.errors }}
+          </div>
+
+          <div class="champ-icone">
+              <label for="{{ form.first_name.id_for_label }}">Prénom</label>
+              <div class="input-avec-icone"><i class='bx bx-id-card'></i>{{ form.first_name }}</div>
+              {{ form.first_name.errors }}
+          </div>
+
+          <div class="champ-icone">
+              <label for="{{ form.date_naissance.id_for_label }}">Date de naissance</label>
+              <div class="input-avec-icone"><i class='bx bx-calendar'></i>{{ form.date_naissance }}</div>
+              {{ form.date_naissance.errors }}
+          </div>
+
+          <div class="champ-icone">
+              <label for="{{ form.sexe.id_for_label }}">Sexe</label>
+              <div class="input-avec-icone"><i class='bx bx-transgender'></i>{{ form.sexe }}</div>
+              {{ form.sexe.errors }}
+          </div>
+
+          <div class="champ-icone">
+              <label for="{{ form.region.id_for_label }}">Région</label>
+              <div class="input-avec-icone"><i class='bx bx-map-alt'></i>{{ form.region }}</div>
+              {{ form.region.errors }}
+          </div>
+
+          <div class="champ-icone">
+              <label for="{{ form.ville.id_for_label }}">Ville</label>
+              <div class="input-avec-icone"><i class='bx bx-buildings'></i>{{ form.ville }}</div>
+              {{ form.ville.errors }}
+          </div>
+
+          <div class="champ-icone">
+              <label for="{{ form.telephone.id_for_label }}">Téléphone</label>
+              <div class="input-avec-icone"><i class='bx bx-phone'></i>{{ form.telephone }}</div>
+              {{ form.telephone.errors }}
+          </div>
+
+          <div class="champ-icone">
+              <label for="{{ form.email.id_for_label }}">Adresse email</label>
+              <div class="input-avec-icone"><i class='bx bx-envelope'></i>{{ form.email }}</div>
+              {{ form.email.errors }}
+          </div>
+
+          <div class="champ-icone">
+              <label for="{{ form.username.id_for_label }}">Nom d'utilisateur</label>
+              <div class="input-avec-icone"><i class='bx bx-at'></i>{{ form.username }}</div>
+              {{ form.username.errors }}
+          </div>
+
+          <div class="champ-icone">
+              <label for="{{ form.description.id_for_label }}">Description (optionnel)</label>
+              <div class="input-avec-icone"><i class='bx bx-message-detail'></i>{{ form.description }}</div>
+          </div>
+
+          <div class="champ-icone">
+              <label for="{{ form.password1.id_for_label }}">Mot de passe</label>
+              <div class="input-avec-icone">
+                  <i class='bx bx-lock-alt'></i>
+                  {{ form.password1 }}
+                  <i class='bx bx-hide toggle-password' data-cible="{{ form.password1.id_for_label }}"></i>
+              </div>
+              {{ form.password1.errors }}
+          </div>
+
+          <div class="champ-icone">
+              <label for="{{ form.password2.id_for_label }}">Confirmation du mot de passe</label>
+              <div class="input-avec-icone">
+                  <i class='bx bx-lock-open-alt'></i>
+                  {{ form.password2 }}
+                  <i class='bx bx-hide toggle-password' data-cible="{{ form.password2.id_for_label }}"></i>
+              </div>
+              {{ form.password2.errors }}
+          </div>
+
+          <button type="submit" class="btn-principal">
+              Créer un compte <i class='bx bx-user-plus'></i>
+          </button>
+      </form>
+
+      <p class="lien-secondaire">Vous avez déjà un compte ? <a href="{% url 'connexion' %}">Connectez-vous</a></p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.toggle-password').forEach(function (icone) {
+    icone.addEventListener('click', function () {
+      const champ = document.getElementById(this.dataset.cible);
+      const type = champ.getAttribute('type') === 'password' ? 'text' : 'password';
+      champ.setAttribute('type', type);
+      this.classList.toggle('bx-hide');
+      this.classList.toggle('bx-show');
+    });
+  });
+</script>
+{% endblock %}

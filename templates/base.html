@@ -1,13 +1,31 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Plateforme Agricole{% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-     {% block content %}{% endblock %}
+  <header class="site-header">
+    <a href="{% url 'accueil' %}" class="header-logo">
+        <i class='bx bxs-leaf'></i> AgriSim 
+    </a>
+    <a href="{% url 'connexion' %}" class="header-connexion">Connexion</a>
+</header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <p class="footer-nom">AgriSim </p>
+        <p class="footer-slogan">Plateforme agricole intelligente &copy; 2026</p>
+    </footer>
 </body>
 </html>

@@ -1,5 +1,687 @@
+:root {
+  --vert-foret: #1F3D2B;
+  --vert-fonce: #16281D;
+  --terre: #8B5E34;
+  --fond: #F5F2D9;
+  --carte: #FFFFFF;
+  --texte: #23281F;
+  --sous-texte: #6B7565;
+  --bordure: #E7E3C9;
+  --bordure-input: #D8D4B8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  background: #FBFAF1;
+  border-bottom: 1px solid var(--bordure);
+}
+
+.header-retour {
+  color: var(--texte);
+  font-size: 1.2rem;
+  display: flex;
+}
+
+.header-logo {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--vert-foret);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  background: var(--fond);
+  color: var(--texte);
+  font-family: "Work Sans", sans-serif;
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  color: var(--vert-foret);
+  margin: 0;
+}
+
+a {
+  color: var(--vert-foret);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* --- Pages d'authentification (connexion / inscription) --- */
+
+.auth-page {
+  min-height: calc(100vh - 4rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+}
+
+.auth-carte {
+  background: var(--carte);
+  border-radius: 14px;
+  padding: 2.5rem 2.25rem;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(31, 61, 43, 0.08);
+  border: 1px solid var(--bordure);
+}
+
+.auth-logo {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 1rem auto;
+  border-radius: 50%;
+  background: var(--vert-foret);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-logo i {
+  color: #fff;
+  font-size: 1.6rem;
+}
+
+.auth-carte h1 {
+  font-size: 1.4rem;
+}
+
+.auth-sous-titre {
+  color: var(--sous-texte);
+  font-size: 0.92rem;
+  margin: 0.4rem 0 1.75rem 0;
+}
+
+.auth-form {
+  text-align: left;
+}
+
+.champ-icone {
+  margin-bottom: 1.1rem;
+}
+
+.champ-icone label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: var(--texte);
+}
+
+.input-avec-icone {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-bottom: 1.5px solid var(--bordure-input);
+  padding-bottom: 0.5rem;
+}
+
+.input-avec-icone i:first-child {
+  color: var(--sous-texte);
+  font-size: 1.1rem;
+  margin-right: 0.6rem;
+}
+
+.input-avec-icone input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.98rem;
+  width: 100%;
+  color: var(--texte);
+}
+
+.input-avec-icone:focus-within {
+  border-bottom-color: var(--vert-foret);
+}
+
+.toggle-password {
+  cursor: pointer;
+  color: var(--sous-texte);
+  font-size: 1.1rem;
+}
+
+.lien-mot-de-passe-oublie {
+  display: block;
+  text-align: right;
+  font-size: 0.82rem;
+  margin: 0.6rem 0 1.4rem 0;
+  color: var(--terre);
+}
+
+.btn-principal {
+  width: 100%;
+  padding: 0.85rem;
+  background: var(--vert-foret);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background 0.15s ease;
+}
+
+.btn-principal:hover {
+  background: var(--vert-fonce);
+}
+
+.lien-secondaire {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--bordure);
+  font-size: 0.88rem;
+  color: var(--sous-texte);
+}
+
+.message {
+  padding: 0.65rem 0.9rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.message.success {
+  background: #E7F0E4;
+  color: var(--vert-foret);
+}
+
+.message.error {
+  background: #FBE9E2;
+  color: #A0421F;
+}
+
+.message.info {
+  background: #F2EEDB;
+  color: var(--terre);
+}
+
+ul.errorlist {
+  list-style: none;
+  padding: 0;
+  margin: 0.3rem 0 0 0;
+  color: #A0421F;
+  font-size: 0.8rem;
+}
+
+/* --- Pages génériques (inscription détaillée, dashboards) --- */
+
+.page {
+  max-width: 480px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+
+.carte {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-top: 4px solid var(--vert-foret);
+  border-radius: 8px;
+  padding: 2rem;
+}
+
+form p {
+  margin: 0 0 1.1rem 0;
+}
+
+form label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+form input:not(.input-avec-icone input),
+form select,
+form textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--bordure-input);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+  background: var(--fond);
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+  outline: 2px solid var(--terre);
+  outline-offset: 1px;
+  border-color: var(--vert-foret);
+}
+
+.dashboard {
+  max-width: 640px;
+  margin: 4rem auto;
+  padding: 0 1.5rem;
+}
+.site-footer {
+  text-align: center;
+  padding: 2rem 1.5rem 2.5rem 1.5rem;
+  border-top: 1px solid var(--bordure);
+  margin-top: 3rem;
+}
+
+.footer-nom {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  color: var(--vert-foret);
+  margin: 0 0 0.3rem 0;
+}
+
+/* --- Header mis à jour --- */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: #FBFAF1;
+  border-bottom: 1px solid var(--bordure);
+}
+
+.header-gauche {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.header-menu {
+  font-size: 1.4rem;
+  color: var(--texte);
+}
+
+.header-connexion {
+  font-size: 0.9rem;
+  color: var(--sous-texte);
+  font-weight: 600;
+}
+
+/* --- Page d'inscription deux colonnes --- */
+
+.inscription-page {
+  display: flex;
+  justify-content: center;
+  padding: 2.5rem 1.5rem;
+}
+
+.inscription-layout {
+  display: flex;
+  width: 100%;
+  max-width: 900px;
+  background: var(--carte);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(31, 61, 43, 0.1);
+  border: 1px solid var(--bordure);
+}
+
+.inscription-image {
+  flex: 1;
+  min-width: 0;
+  background-image: linear-gradient(180deg, rgba(22, 40, 29, 0.15) 0%, rgba(22, 40, 29, 0.9) 100%), url("/static/images/ImageInscription.png");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  padding: 2rem;
+}
+
+.inscription-image-texte h2 {
+  color: #fff;
+  font-size: 2.1rem;
+  line-height: 1.15;
+  margin-bottom: 0.75rem;
+}
+
+.inscription-image-texte p {
+  color: #E8E5D2;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.inscription-form-panel {
+  flex: 1;
+  min-width: 0;
+  padding: 2.5rem 2.25rem;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.inscription-form-panel h1 {
+  font-size: 1.5rem;
+}
+
+.input-avec-icone select,
+.input-avec-icone textarea {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.98rem;
+  width: 100%;
+  color: var(--texte);
+  resize: vertical;
+}
+
+.input-avec-icone {
+  align-items: flex-start;
+}
+
+.input-avec-icone i:first-child {
+  margin-top: 0.15rem;
+}
+
+/* --- Responsive --- */
+
+@media (max-width: 720px) {
+  .inscription-layout {
+    flex-direction: column;
+  }
+
+  .inscription-image {
+    min-height: 220px;
+  }
+
+  .inscription-image-texte h2 {
+    font-size: 1.6rem;
+  }
+
+  .inscription-form-panel {
+    max-height: none;
+    overflow-y: visible;
+    padding: 2rem 1.5rem;
+  }
+
+  .auth-carte {
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* --- Page d'accueil : Hero --- */
+.hero {
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  background-image: linear-gradient(100deg, rgba(22, 40, 29, 0.82) 0%, rgba(22, 40, 29, 0.4) 45%, rgba(22, 40, 29, 0.15) 100%), url("/static/images/ImageAccueil.png");
+  background-size: cover;
+  background-position: center;
+  padding: 3rem 5%;
+}
+
+.hero-contenu {
+  max-width: 560px;
+  text-align: left;
+}
+
+.hero-contenu h1 {
+  color: #fff;
+  font-size: 2.4rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.hero-contenu p {
+  color: #E8E5D2;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.75rem;
+}
+
+.hero-boutons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+.btn-accent {
+  background: #B5651D;
+  color: #fff;
+  padding: 0.85rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btn-accent:hover {
+  background: #9A5518;
+  text-decoration: none;
+}
+
+.btn-blanc {
+  background: #fff;
+  color: var(--vert-foret);
+  padding: 0.85rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.btn-blanc:hover {
+  background: #EFEDE0;
+  text-decoration: none;
+}
+
+/* --- Section outils --- */
+.section-outils, .section-catalogue {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 3.5rem 5% 1rem 5%;
+  text-align: center;
+}
+
+.section-outils h2, .section-catalogue h2 {
+  font-size: 1.6rem;
+}
+
+.section-intro {
+  color: var(--sous-texte);
+  max-width: 480px;
+  margin: 0.75rem auto 2rem auto;
+  line-height: 1.6;
+}
+
+.cartes-outils {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.carte-outil {
+  background: #E7EAD7;
+  border-radius: 12px;
+  padding: 1.75rem;
+  text-align: left;
+  box-shadow: 0 2px 6px rgba(31, 61, 43, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.carte-outil:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(31, 61, 43, 0.16);
+}
+.carte-outil-icone {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--vert-foret);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.carte-outil-icone i {
+  color: #fff;
+  font-size: 1.3rem;
+}
+
+.carte-outil h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.carte-outil p {
+  color: var(--sous-texte);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+/* --- Catalogue --- */
+
+.grille-catalogue {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  text-align: left;
+}
+
+@media (max-width: 860px) {
+  .grille-catalogue {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .grille-catalogue {
+    grid-template-columns: 1fr;
+  }
+}
+.carte-culture {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(31, 61, 43, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.carte-culture:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(31, 61, 43, 0.16);
+}
+
+
+.carte-culture-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+}
+
+.carte-culture-contenu {
+  padding: 1.25rem;
+}
+
+.carte-culture h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.6rem;
+}
+
+.carte-culture p {
+  color: var(--sous-texte);
+  font-size: 0.85rem;
+  margin: 0.3rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.carte-culture h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.6rem;
+}
+
+.carte-culture p {
+  color: var(--sous-texte);
+  font-size: 0.85rem;
+  margin: 0.3rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* --- CTA finale --- */
+.section-cta {
+  background: var(--vert-foret);
+  text-align: center;
+  padding: 3.5rem 5%;
+  margin-top: 3rem;
+}
+
+.section-cta h2, .section-cta p {
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-cta h2 {
+  color: #fff;
+  font-size: 1.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.section-cta p {
+  color: #D7DDCB;
+  margin-bottom: 1.75rem;
+  line-height: 1.6;
+}
+
+.btn-cta {
+  background: #fff;
+  color: var(--vert-foret);
+  padding: 0.85rem 1.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.btn-cta:hover {
+  background: #EFEDE0;
+  text-decoration: none;
+}
+
+/* --- Responsive accueil --- */
+
+@media (min-width: 720px) {
+  .cartes-outils {
+    flex-direction: row;
+  }
+
+  .carte-outil {
+    flex: 1;
+  }
+
+  .hero-contenu h1 {
+    font-size: 3rem;
+  }
 }
