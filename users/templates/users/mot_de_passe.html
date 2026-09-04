@@ -1,0 +1,23 @@
+{% extends "base_app.html" %}
+{% load static %}
+
+{% block title %}Changer le mot de passe - AgriSim{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/profil.css' %}">{% endblock %}
+
+{% block content %}
+<div class="profil-page">
+    <h1>Changer le mot de passe</h1>
+
+    <div class="carte-profil">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn-nouvelle-simulation">
+                <i class='bx bx-check'></i> Confirmer
+            </button>
+        </form>
+    </div>
+
+    <p class="lien-secondaire"><a href="{% url 'profil' %}">← Retour au profil</a></p>
+</div>
+{% endblock %}

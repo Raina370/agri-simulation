@@ -44,14 +44,17 @@
 
     <div class="grille-catalogue">
         {% for item in cultures_avec_images %}
+        
         <div class="carte-culture">
-            <img src="{% static item.image %}" alt="{{ item.culture.nom }}" class="carte-culture-image">
-            <div class="carte-culture-contenu">
-                <h3>{{ item.culture.nom }}</h3>
-                <p><i class='bx bx-line-chart'></i> Rendement moyen : {{ item.culture.rendement_moyen }} t/ha</p>
-                <p><i class='bx bx-calendar'></i> Cycle : {{ item.culture.cycle_jours }} jours</p>
-            </div>
+    <img src="{% static item.image %}" alt="{{ item.culture.nom }}" class="carte-culture-image">
+    <div class="carte-culture-contenu">
+        <h3>{{ item.culture.nom }}</h3>
+        <div class="carte-culture-meta">
+            <span><i class='bx bx-line-chart'></i> {{ item.culture.rendement_moyen }} t/ha</span>
+            <span><i class='bx bx-calendar'></i> {{ item.culture.cycle_jours }} j</span>
         </div>
+    </div>
+</div>
         {% empty %}
         <p>Aucune culture référencée pour le moment.</p>
         {% endfor %}
@@ -61,7 +64,7 @@
 <section class="section-cta">
     <h2>Prêt à transformer votre exploitation ?</h2>
     <p>Rejoignez des centaines d'agriculteurs qui utilisent AgriSim pour sécuriser leurs récoltes.</p>
-    <a href="{% url 'inscription' %}" class="btn-cta">Créer un compte gratuit</a>
+    <a href="{% url 'inscription' %}" class="btn-cta"><i class='bx bx-user-plus'></i> Créer un compte gratuit</a>
 </section>
 
 {% endblock %}

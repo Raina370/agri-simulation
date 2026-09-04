@@ -1,0 +1,16 @@
+{% extends "base_app.html" %}
+{% load static %}
+
+{% block title %}Mot de passe modifié - AgriSim{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/profil.css' %}">{% endblock %}
+
+{% block content %}
+<div class="profil-page">
+    <div class="carte-profil" style="text-align: center;">
+        <i class='bx bx-check-circle' style="font-size: 3rem; color: var(--vert-foret);"></i>
+        <h1>Mot de passe modifié</h1>
+        <p>Votre mot de passe a été changé avec succès.</p>
+        <a href="{% url 'profil' %}" class="btn-nouvelle-simulation">Retour au profil</a>
+    </div>
+</div>
+{% endblock %}

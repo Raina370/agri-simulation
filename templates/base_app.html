@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AgriSim{% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <i class='bx bxs-leaf'></i> AgriSim
+            </div>
+
+           <nav class="sidebar-nav">
+    <a href="{% url 'dashboard' %}" class="sidebar-item {% if request.resolver_match.url_name == 'dashboard_agriculteur' %}sidebar-item-actif{% endif %}">
+        <i class='bx bx-home-alt'></i> Accueil
+    </a>
+    <span class="sidebar-item sidebar-item-desactive">
+        <i class='bx bx-play-circle'></i> Simulation
+        <span class="badge-bientot">Bientôt</span>
+    </span>
+    <span class="sidebar-item sidebar-item-desactive">
+        <i class='bx bx-list-ul'></i> Mes simulations
+        <span class="badge-bientot">Bientôt</span>
+    </span>
+    <a href="{% url 'profil' %}" class="sidebar-item {% if 'profil' in request.resolver_match.url_name %}sidebar-item-actif{% endif %}">
+    <i class='bx bx-user'></i> Profil
+</a>
+    <span class="sidebar-item sidebar-item-desactive">
+        <i class='bx bx-message-dots'></i> Assistance IA
+        <span class="badge-bientot">Bientôt</span>
+    </span>
+</nav> 
+
+            <a href="{% url 'deconnexion' %}" class="sidebar-item sidebar-deconnexion">
+                <i class='bx bx-log-out'></i> Déconnexion
+            </a>
+        </aside>
+
+        <div class="app-contenu">
+            {% if messages %}
+                <div class="app-messages">
+                    {% for message in messages %}
+                        <div class="message {{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>

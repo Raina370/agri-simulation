@@ -1,9 +1,61 @@
-{% extends "base.html" %}
+{% extends "base_app.html" %}
 
-{% block title %}Tableau de bord Agriculteur{% endblock %}
+{% load static %}
+{% block title %}Accueil - AgriSim{% endblock %}
 
 {% block content %}
-<h1>Bienvenue, {{ user.first_name }} {{ user.last_name }}</h1>
-<p>Vous êtes connecté en tant qu'agriculteur.</p>
-<a href="{% url 'deconnexion' %}">Se déconnecter</a>
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<div class="dashboard-accueil">
+
+    <div class="banniere-bienvenue">
+        <div class="banniere-texte">
+            <h1>Bienvenue, {{ user.username }}</h1>
+            <p class="sous-titre">Voici un aperçu de vos activités agricoles récentes.</p>
+        </div>
+        <div class="banniere-icone"><i class='bx bxs-leaf'></i></div>
+    </div>
+<span class="btn-nouvelle-simulation btn-desactive">
+    <i class='bx bx-plus-circle'></i> Nouvelle simulation
+    <span class="badge-bientot">Bientôt</span>
+</span>
+
+    <div class="stats-grille">
+        <div class="carte-stat">
+            <div class="carte-stat-icone icone-vert"><i class='bx bx-line-chart'></i></div>
+            <div class="carte-stat-label">Simulations effectuées</div>
+            <div class="carte-stat-valeur">{{ nb_simulations }}</div>
+        </div>
+
+        <div class="carte-stat">
+            <div class="carte-stat-icone icone-orange"><i class='bx bxs-leaf'></i></div>
+            <div class="carte-stat-label">Culture la plus simulée</div>
+            {% if culture_top %}
+                <div class="carte-stat-valeur" style="font-size: 1.3rem;">{{ culture_top.culture__nom }}</div>
+            {% else %}
+                <p class="carte-stat-vide">Aucune donnée pour l'instant</p>
+            {% endif %}
+        </div>
+
+        <div class="carte-stat">
+            <div class="carte-stat-icone icone-bleu"><i class='bx bxs-thermometer'></i></div>
+            <div class="carte-stat-label">Rendement moyen estimé</div>
+            <p class="carte-stat-vide">Disponible après simulation</p>
+        </div>
+    </div>
+       
+    <div class="section-dernieres">
+    <h2>Dernières simulations</h2>
+
+    <div class="carte-vide-simulation">
+       <img src="{% static 'images/dashboard.png' %}?v=2" alt="Aucune simulation" class="illustration-vide">
+        <div class="carte-vide-texte">
+            <p>Aucune simulation récente. Commencez par planifier une nouvelle culture !</p>
+            <span class="btn-nouvelle-simulation btn-desactive">
+                <i class='bx bx-play-circle'></i> Lancer une nouvelle simulation
+                <span class="badge-bientot">Bientôt</span>
+            </span>
+        </div>
+    </div>
+</div>
+    
 {% endblock %}

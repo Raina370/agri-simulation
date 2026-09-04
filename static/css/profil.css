@@ -1,0 +1,260 @@
+.profil-page {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.profil-page h1 {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* --- Entête --- */
+
+.profil-entete {
+  background: linear-gradient(135deg, #16281D 0%, #2F6B45 55%, #B5651D 130%);
+  border-radius: 18px;
+  padding: 2.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: left;
+}
+
+.profil-avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--vert-foret);
+  font-family: "Fraunces", serif;
+  font-size: 1.7rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 3px solid #E3A857;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+.profil-entete-texte {
+  flex: 1;
+  min-width: 180px;
+}
+
+.profil-entete-texte h1 {
+  color: #fff;
+  font-size: 1.5rem;
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.profil-entete-texte p {
+  color: #EDE3D3;
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.profil-entete .btn-nouvelle-simulation {
+  background: #E3A857;
+  color: var(--vert-foret);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.profil-entete .btn-nouvelle-simulation:hover {
+  background: #D49640;
+}
+
+/* --- Cartes --- */
+
+.carte-profil {
+  background: var(--carte);
+  border-radius: 14px;
+  padding: 1.6rem 1.75rem;
+  box-shadow: 0 2px 10px rgba(31, 61, 43, 0.06);
+  margin-bottom: 1.25rem;
+}
+
+.carte-profil h2 {
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--bordure);
+  padding-bottom: 0.9rem;
+  margin-bottom: 1.1rem;
+}
+
+.carte-profil h2 i {
+  color: #B5651D;
+}
+
+.profil-bio {
+  color: var(--texte);
+  line-height: 1.65;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.profil-grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.profil-grille .carte-profil {
+  margin-bottom: 0;
+}
+
+.profil-champ {
+  margin-bottom: 1.1rem;
+}
+
+.profil-champ:last-child {
+  margin-bottom: 0;
+}
+
+.profil-champ-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--sous-texte);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.35rem;
+}
+
+.profil-champ-valeur {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.profil-vide {
+  color: var(--sous-texte);
+  font-weight: 500;
+}
+
+.profil-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+.profil-tag {
+  background: #F5E4D3;
+  color: #8A4A16;
+  padding: 0.32rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* --- Sécurité & compte --- */
+
+.profil-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.95rem 0.5rem;
+  border-bottom: 1px solid var(--bordure);
+  color: var(--texte);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.profil-action:last-child {
+  border-bottom: none;
+}
+
+.profil-action:hover {
+  background: var(--fond);
+  text-decoration: none;
+}
+
+.profil-action span {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.profil-action-danger {
+  color: #A0421F;
+}
+
+/* --- Formulaires (modifier profil / mot de passe) --- */
+
+.carte-profil form {
+  max-width: 460px;
+  margin: 0 auto;
+}
+
+.carte-profil form p {
+  text-align: left;
+}
+
+.carte-profil .btn-nouvelle-simulation {
+  width: 100%;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+/* --- Confirmation mot de passe --- */
+
+.carte-profil[style] h1 {
+  text-align: center;
+  margin: 1rem 0 0.5rem 0;
+}
+
+.carte-profil[style] p {
+  text-align: center;
+  color: var(--sous-texte);
+  margin-bottom: 1.5rem;
+}
+
+/* --- Responsive --- */
+
+@media (max-width: 640px) {
+  .profil-entete {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.75rem 1.5rem;
+  }
+
+  .profil-entete-texte {
+    text-align: center;
+  }
+
+  .profil-entete-texte h1 {
+    text-align: center;
+  }
+
+  .profil-entete-texte p {
+    justify-content: center;
+  }
+
+  .profil-entete .btn-nouvelle-simulation {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .carte-profil {
+    padding: 1.25rem;
+  }
+
+  .carte-profil form {
+    max-width: 100%;
+  }
+}

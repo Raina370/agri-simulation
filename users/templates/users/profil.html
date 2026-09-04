@@ -1,0 +1,78 @@
+{% extends "base_app.html" %}
+{% load static %}
+
+{% block title %}Mon profil - AgriSim{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/profil.css' %}">{% endblock %}
+
+{% block content %}
+<div class="profil-page">
+
+    <div class="profil-entete">
+        <div class="profil-avatar">{{ user.first_name|first|upper }}{{ user.last_name|first|upper }}</div>
+        <div class="profil-entete-texte">
+            <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+            <p><i class='bx bx-map-pin'></i> {{ user.region }}, Cameroun</p>
+        </div>
+        <a href="{% url 'profil_modifier' %}" class="btn-nouvelle-simulation">
+            <i class='bx bx-edit'></i> Modifier le profil
+        </a>
+    </div>
+
+    {% if user.description %}
+    <div class="carte-profil">
+        <h2><i class='bx bx-message-square-detail'></i> Bio</h2>
+        <p class="profil-bio">{{ user.description }}</p>
+    </div>
+    {% endif %}
+
+    <div class="profil-grille">
+        <div class="carte-profil">
+            <h2><i class='bx bx-id-card'></i> Coordonnées</h2>
+            <div class="profil-champ">
+                <span class="profil-champ-label">Téléphone</span>
+                <span class="profil-champ-valeur">{{ user.telephone }}</span>
+            </div>
+            <div class="profil-champ">
+                <span class="profil-champ-label">Adresse email</span>
+                <span class="profil-champ-valeur">{{ user.email }}</span>
+            </div>
+            <div class="profil-champ">
+                <span class="profil-champ-label">Ville</span>
+                <span class="profil-champ-valeur">{{ user.ville }}</span>
+            </div>
+        </div>
+
+        <div class="carte-profil">
+            <h2><i class='bx bxs-leaf'></i> Détails de l'exploitation</h2>
+            <div class="profil-champ">
+                <span class="profil-champ-label">Cultures principales</span>
+                {% if cultures_principales %}
+                <div class="profil-tags">
+                    {% for c in cultures_principales %}
+                    <span class="profil-tag"><i class='bx bxs-leaf'></i> {{ c.culture__nom }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <span class="profil-champ-valeur profil-vide">Aucune simulation pour l'instant</span>
+                {% endif %}
+            </div>
+            <div class="profil-champ">
+                <span class="profil-champ-label">Surface totale</span>
+                <span class="profil-champ-valeur">{% if superficie_totale %}{{ superficie_totale }} hectares{% else %}—{% endif %}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="carte-profil">
+        <h2><i class='bx bx-shield-quarter'></i> Sécurité & Compte</h2>
+        <a href="{% url 'mot_de_passe' %}" class="profil-action">
+            <span><i class='bx bx-lock-alt'></i> Changer le mot de passe</span>
+            <i class='bx bx-chevron-right'></i>
+        </a>
+        <a href="{% url 'deconnexion' %}" class="profil-action profil-action-danger">
+            <span><i class='bx bx-log-out'></i> Déconnexion</span>
+        </a>
+    </div>
+
+</div>
+{% endblock %}

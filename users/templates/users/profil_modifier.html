@@ -1,0 +1,29 @@
+{% extends "base_app.html" %}
+{% load static %}
+
+{% block title %}Modifier mon profil - AgriSim{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/profil.css' %}">{% endblock %}
+
+{% block content %}
+<div class="profil-page">
+    <h1>Modifier mon profil</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="carte-profil">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn-nouvelle-simulation">
+                <i class='bx bx-check'></i> Enregistrer
+            </button>
+        </form>
+    </div>
+
+    <p class="lien-secondaire"><a href="{% url 'profil' %}">← Retour au profil</a></p>
+</div>
+{% endblock %}

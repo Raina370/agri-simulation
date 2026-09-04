@@ -12,6 +12,7 @@ class PlantationForm(forms.ModelForm):
             "date_plantation": forms.DateInput(attrs={"type": "date"}),
         }
         labels = {
+            "nom_parcelle": "Nom de la parcelle",
             "culture": "Culture",
             "region": "Région",
             "departement": "Département",

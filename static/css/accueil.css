@@ -154,15 +154,46 @@
   box-shadow: 0 10px 24px rgba(31, 61, 43, 0.16);
 }
 
+.carte-culture {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+}
+
 .carte-culture-image {
   width: 100%;
-  height: 150px;
+  height: 75%;
   object-fit: cover;
   display: block;
+  flex-shrink: 0;
 }
 
 .carte-culture-contenu {
-  padding: 1.25rem;
+  height: 25%;
+  padding: 0.85rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.carte-culture-contenu h3 {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.carte-culture-meta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.carte-culture-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.78rem;
+  color: var(--sous-texte);
 }
 
 .carte-culture h3 {
@@ -207,16 +238,21 @@
 }
 
 .btn-cta {
-  background: #fff;
-  color: var(--vert-foret);
-  padding: 0.85rem 1.75rem;
-  border-radius: 8px;
+  background: linear-gradient(135deg, #E3A857 0%, #B5651D 100%);
+  color: #fff;
+  padding: 0.9rem 2rem;
+  border-radius: 10px;
   font-weight: 600;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  box-shadow: 0 6px 18px rgba(181, 101, 29, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .btn-cta:hover {
-  background: #EFEDE0;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(181, 101, 29, 0.45);
   text-decoration: none;
 }
 

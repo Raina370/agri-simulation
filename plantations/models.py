@@ -4,6 +4,7 @@ from agriculture.models import Culture, Region, Departement, Sol
 
 class Plantation(models.Model):
     utilisateur = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='plantations')
+    nom_parcelle = models.CharField(max_length=100)
     culture = models.ForeignKey(Culture, on_delete=models.PROTECT, related_name="plantations")
     region = models.ForeignKey(Region, on_delete=models.PROTECT, related_name="plantations")
     departement = models.ForeignKey(Departement, on_delete=models.PROTECT, related_name="plantations")
