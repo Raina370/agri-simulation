@@ -25,17 +25,19 @@
     <a href="{% url 'dashboard' %}" class="sidebar-item {% if request.resolver_match.url_name == 'dashboard_agriculteur' %}sidebar-item-actif{% endif %}">
         <i class='bx bx-home-alt'></i> Accueil
     </a>
+    
+
+    <a href="{% url 'creer_plantation' %}" class="sidebar-item {% if request.resolver_match.url_name == 'creer_plantation' or request.resolver_match.url_name == 'simulation_confirmation' or request.resolver_match.url_name == 'detail_plantation' %}sidebar-item-actif{% endif %}">
+    <i class='bx bx-play-circle'></i> Simulation
+</a>
     <span class="sidebar-item sidebar-item-desactive">
-        <i class='bx bx-play-circle'></i> Simulation
-        <span class="badge-bientot">Bientôt</span>
-    </span>
-    <span class="sidebar-item sidebar-item-desactive">
-        <i class='bx bx-list-ul'></i> Mes simulations
+        <i class='bx bx-play-circle'></i> Mes Simulations
         <span class="badge-bientot">Bientôt</span>
     </span>
     <a href="{% url 'profil' %}" class="sidebar-item {% if 'profil' in request.resolver_match.url_name %}sidebar-item-actif{% endif %}">
     <i class='bx bx-user'></i> Profil
 </a>
+
     <span class="sidebar-item sidebar-item-desactive">
         <i class='bx bx-message-dots'></i> Assistance IA
         <span class="badge-bientot">Bientôt</span>

@@ -1,0 +1,18 @@
+{% extends "base_app.html" %}
+{% load static %}
+
+{% block title %}Simulation effectuée - AgriSim{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/simulation.css' %}">{% endblock %}
+
+{% block content %}
+<div class="simulation-page">
+    <div class="carte-confirmation">
+        <div class="confirmation-icone"><i class='bx bx-check'></i></div>
+        <h1>Simulation effectuée avec succès</h1>
+        <p>Votre parcelle « {{ plantation.nom_parcelle }} » a bien été enregistrée. Consultez les résultats détaillés ci-dessous.</p>
+        <a href="{% url 'detail_plantation' plantation.pk %}" class="btn-accent">
+            <i class='bx bx-bar-chart-alt-2'></i> Consulter le résultat
+        </a>
+    </div>
+</div>
+{% endblock %}

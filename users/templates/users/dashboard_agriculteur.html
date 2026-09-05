@@ -14,10 +14,9 @@
         </div>
         <div class="banniere-icone"><i class='bx bxs-leaf'></i></div>
     </div>
-<span class="btn-nouvelle-simulation btn-desactive">
-    <i class='bx bx-plus-circle'></i> Nouvelle simulation
-    <span class="badge-bientot">Bientôt</span>
-</span>
+<a href="{% url 'creer_plantation' %}" class="btn-nouvelle-simulation">
+    <i class='bx bx-play-circle'></i> Nouvelle simulation
+</a>
 
     <div class="stats-grille">
         <div class="carte-stat">
@@ -50,10 +49,9 @@
        <img src="{% static 'images/dashboard.png' %}?v=2" alt="Aucune simulation" class="illustration-vide">
         <div class="carte-vide-texte">
             <p>Aucune simulation récente. Commencez par planifier une nouvelle culture !</p>
-            <span class="btn-nouvelle-simulation btn-desactive">
+            <a href="{% url 'creer_plantation' %}" class="btn-nouvelle-simulation">
                 <i class='bx bx-play-circle'></i> Lancer une nouvelle simulation
-                <span class="badge-bientot">Bientôt</span>
-            </span>
+            </a>
         </div>
     </div>
 </div>

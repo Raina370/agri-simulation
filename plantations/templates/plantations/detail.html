@@ -1,0 +1,44 @@
+{% extends "base_app.html" %}
+{% load static %}
+
+{% block title %}Résultats {{ plantation.culture.nom }} - AgriSim{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/simulation.css' %}">
+<link rel="stylesheet" href="{% static 'css/profil.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="simulation-page">
+    <p class="resultat-eyebrow">RAPPORT DE SIMULATION #{{ plantation.pk }}</p>
+    <h1>Résultats {{ plantation.culture.nom }} - {{ plantation.region.nom }}</h1>
+    <p class="section-intro-gauche">{{ plantation.departement.nom }}, Région de l'{{ plantation.region.nom }} • Sol {{ plantation.sol.type_sol }}</p>
+
+    <div class="carte-profil">
+        <h2><i class='bx bx-map-pin'></i> Détails de la parcelle</h2>
+        <div class="profil-champ">
+            <span class="profil-champ-label">Nom de la parcelle</span>
+            <span class="profil-champ-valeur">{{ plantation.nom_parcelle }}</span>
+        </div>
+        <div class="profil-champ">
+            <span class="profil-champ-label">Superficie</span>
+            <span class="profil-champ-valeur">{{ plantation.superficie }} hectares</span>
+        </div>
+        <div class="profil-champ">
+            <span class="profil-champ-label">Date de plantation</span>
+            <span class="profil-champ-valeur">{{ plantation.date_plantation|date:"d M Y" }}</span>
+        </div>
+    </div>
+
+    <div class="carte-profil carte-resultat-attente">
+        <i class='bx bx-time-five'></i>
+        <h2>Résultats en cours de préparation</h2>
+        <p>Le rendement estimé, le niveau de risque et les recommandations agricoles seront calculés automatiquement par notre moteur de simulation, bientôt disponible.</p>
+    </div>
+
+    <div style="text-align: center; margin-top: 1.5rem;">
+        <a href="{% url 'modifier_plantation' plantation.pk %}" class="btn-accent">
+            <i class='bx bx-edit'></i> Modifier cette simulation
+        </a>
+    </div>
+</div>
+{% endblock %}
