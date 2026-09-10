@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout, authenticate , make_password
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import InscriptionForm
@@ -38,9 +38,9 @@ def inscription(request):
 
 def connexion(request):
     if request.method == "POST":
-        username = request.POST.get()
-        password = request.POST.get()
-        utilisateur = authenticate(request, username=username, password=password)
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        utilisateur = authenticate(request, username=username, password=make_password(password))
         if utilisateur is not None:
             login(request, utilisateur)
             return redirect("dashboard")
