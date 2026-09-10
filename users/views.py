@@ -38,8 +38,8 @@ def inscription(request):
 
 def connexion(request):
     if request.method == "POST":
-        username = request.POST.get("username")
-        password = request.POST.get("password")
+        username = request.POST.get()
+        password = request.POST.get()
         utilisateur = authenticate(request, username=username, password=password)
         if utilisateur is not None:
             login(request, utilisateur)
