@@ -1,0 +1,109 @@
+{% extends "base_app.html" %}
+{% load static %}
+
+{% block title %}Assistance IA - AgriSim{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/chatbot.css' %}">{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <div class="chatbot-header-bandeau">
+        <div class="chatbot-header-texte">
+            <h1><i class='bx bxs-leaf'></i> Assistance IA</h1>
+            <p>Posez vos questions agricoles, obtenez des réponses claires et pratiques.</p>
+        </div>
+        <a href="{% url 'nouvelle_conversation' %}" class="btn-nouvelle-conversation">
+            <i class='bx bx-message-add'></i> Nouvelle conversation
+        </a>
+    </div>
+
+    {% if conversations %}
+    <p class="astuce-appui-long"><i class='bx bx-info-circle'></i> Astuce : maintenez appuyé sur une conversation pour la supprimer.</p>
+    <div class="liste-conversations">
+        {% for conversation in conversations %}
+        <div class="carte-conversation-wrapper" data-pk="{{ conversation.pk }}">
+            <a href="{% url 'conversation_detail' conversation.pk %}" class="carte-conversation">
+                <div class="carte-conversation-icone"><i class='bx bx-message-dots'></i></div>
+                <div class="carte-conversation-texte">
+                    <strong>{{ conversation.titre }}</strong>
+                    <span>{{ conversation.date_creation|date:"d M Y, H:i" }}</span>
+                </div>
+                <i class='bx bx-chevron-right'></i>
+            </a>
+            <form method="post" action="{% url 'supprimer_conversation' conversation.pk %}" class="form-suppression-conversation">
+                {% csrf_token %}
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="etat-vide">Aucune conversation pour l'instant. <a href="{% url 'nouvelle_conversation' %}">Démarrez-en une</a> pour poser vos questions à l'assistant.</p>
+    {% endif %}
+</div>
+
+<div class="modal-suppression" id="modal-suppression">
+    <div class="modal-suppression-contenu">
+        <i class='bx bx-trash'></i>
+        <h3>Supprimer cette conversation ?</h3>
+        <p>Cette action est définitive et supprimera tous les messages associés.</p>
+        <div class="modal-suppression-boutons">
+            <button type="button" id="btn-annuler-suppression" class="btn-annuler">Annuler</button>
+            <button type="button" id="btn-confirmer-suppression" class="btn-supprimer">Supprimer</button>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    let elementCible = null;
+    let minuteur = null;
+    const DUREE_APPUI_LONG = 600;
+
+    const modal = document.getElementById('modal-suppression');
+    const btnAnnuler = document.getElementById('btn-annuler-suppression');
+    const btnConfirmer = document.getElementById('btn-confirmer-suppression');
+
+    function ouvrirModal(wrapper) {
+        elementCible = wrapper;
+        modal.classList.add('modal-suppression-visible');
+    }
+
+    function fermerModal() {
+        elementCible = null;
+        modal.classList.remove('modal-suppression-visible');
+    }
+
+    document.querySelectorAll('.carte-conversation-wrapper').forEach(function (wrapper) {
+        const lien = wrapper.querySelector('.carte-conversation');
+
+        function demarrerAppui(e) {
+            minuteur = setTimeout(function () {
+                if (e.cancelable) e.preventDefault();
+                ouvrirModal(wrapper);
+            }, DUREE_APPUI_LONG);
+        }
+
+        function annulerAppui() {
+            clearTimeout(minuteur);
+        }
+
+        lien.addEventListener('mousedown', demarrerAppui);
+        lien.addEventListener('mouseup', annulerAppui);
+        lien.addEventListener('mouseleave', annulerAppui);
+        lien.addEventListener('touchstart', demarrerAppui, { passive: true });
+        lien.addEventListener('touchend', annulerAppui);
+        lien.addEventListener('touchmove', annulerAppui);
+    });
+
+    btnAnnuler.addEventListener('click', fermerModal);
+    modal.addEventListener('click', function (e) {
+        if (e.target === modal) fermerModal();
+    });
+
+    btnConfirmer.addEventListener('click', function () {
+        if (!elementCible) return;
+        const form = elementCible.querySelector('.form-suppression-conversation');
+        form.submit();
+    });
+});
+</script>
+{% endblock %}

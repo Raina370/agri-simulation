@@ -1,0 +1,78 @@
+{% extends "base_app.html" %}
+{% load static %}
+
+{% block title %}Mes simulations - AgriSim{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/plantations.css' %}">{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <div class="dashboard-header">
+        <h1>Mes simulations</h1>
+        <a href="{% url 'creer_plantation' %}" class="btn-accent">
+            <i class='bx bx-plus'></i> Nouvelle simulation
+        </a>
+    </div>
+
+    {% if plantations %}
+    <div class="grille-plantations">
+        {% for plantation in plantations %}
+        <div class="carte-plantation">
+            <div class="carte-plantation-icone"><i class='bx bxs-leaf'></i></div>
+            <h3>{{ plantation.nom_parcelle }}</h3>
+            <p class="carte-plantation-culture">{{ plantation.culture.nom }}</p>
+            <p><i class='bx bx-map-alt'></i> {{ plantation.region.nom }}, {{ plantation.departement.nom }}</p>
+            <p><i class='bx bx-move'></i> {{ plantation.superficie }} ha</p>
+            <p><i class='bx bx-calendar'></i> {{ plantation.date_plantation|date:"d/m/Y" }}</p>
+            <div class="carte-plantation-actions">
+                <a href="{% url 'detail_plantation' plantation.pk %}"><i class='bx bx-show'></i> Détails</a>
+                <a href="{% url 'modifier_plantation' plantation.pk %}"><i class='bx bx-edit'></i> Modifier</a>
+                <button type="button" class="lien-supprimer" data-url="{% url 'supprimer_plantation' plantation.pk %}">
+                    <i class='bx bx-trash'></i> Supprimer
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="etat-vide">Vous n'avez encore aucune simulation. <a href="{% url 'creer_plantation' %}">Créez-en une</a> pour commencer.</p>
+    {% endif %}
+</div>
+
+<div class="modal-suppression" id="modal-suppression-plantation">
+    <div class="modal-suppression-contenu">
+        <i class='bx bx-trash'></i>
+        <h3>Supprimer cette simulation ?</h3>
+        <p>Cette action est définitive.</p>
+        <div class="modal-suppression-boutons">
+            <button type="button" id="annuler-suppr-plantation" class="btn-annuler">Annuler</button>
+            <form method="post" id="form-suppr-plantation">
+                {% csrf_token %}
+                <button type="submit" class="btn-supprimer">Supprimer</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById('modal-suppression-plantation');
+    const form = document.getElementById('form-suppr-plantation');
+    const btnAnnuler = document.getElementById('annuler-suppr-plantation');
+
+    document.querySelectorAll('.lien-supprimer').forEach(function (bouton) {
+        bouton.addEventListener('click', function () {
+            form.action = bouton.dataset.url;
+            modal.classList.add('modal-suppression-visible');
+        });
+    });
+
+    btnAnnuler.addEventListener('click', function () {
+        modal.classList.remove('modal-suppression-visible');
+    });
+
+    modal.addEventListener('click', function (e) {
+        if (e.target === modal) modal.classList.remove('modal-suppression-visible');
+    });
+});
+</script>
+{% endblock %}

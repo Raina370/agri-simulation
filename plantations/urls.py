@@ -4,7 +4,10 @@ from . import views
 urlpatterns = [
     path("nouvelle/", views.creer_plantation, name="creer_plantation"),
     path("<int:pk>/", views.detail_plantation, name="detail_plantation"),
+    path("mes-simulations/", views.liste_plantations, name="liste_plantations"),
     path("<int:pk>/modifier/", views.modifier_plantation, name="modifier_plantation"),
     path("<int:pk>/confirmation/", views.simulation_confirmation, name="simulation_confirmation"),
     path("<int:pk>/", views.detail_plantation, name="detail_plantation"),
+    path("<int:pk>/pdf/", views.telecharger_pdf, name="telecharger_pdf"),
+    path("<int:pk>/supprimer/", views.supprimer_plantation, name="supprimer_plantation"),
 ]

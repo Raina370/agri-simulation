@@ -1,0 +1,139 @@
+{% extends "base_app.html" %}
+{% load static %}
+
+{% block title %}Assistant IA - AgriSim{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/chatbot.css' %}">{% endblock %}
+
+{% block content %}
+<div class="chat-page">
+    <div class="chat-cadre" id="chat-cadre" data-conversation-id="{{ conversation.pk }}">
+
+        <div class="chat-cadre-header">
+            <a href="{% url 'liste_conversations' %}" class="chat-retour"><i class='bx bx-arrow-back'></i></a>
+            <div class="chat-cadre-icone"><i class='bx bxs-leaf'></i></div>
+            <div class="chat-cadre-header-texte">
+                <h1>Assistant IA</h1>
+                <div class="chat-header-statut"><i class='bx bxs-circle'></i> En ligne</div>
+            </div>
+        </div>
+
+        <div class="chat-messages" id="chat-messages">
+            {% for message in historique_messages %}
+            <div class="bulle-ligne bulle-ligne-{{ message.role }}">
+                <div class="bulle-avatar bulle-avatar-{{ message.role }}">
+                    {% if message.role == "user" %}<i class='bx bx-user'></i>{% else %}<i class='bx bxs-leaf'></i>{% endif %}
+                </div>
+                <div class="bulle bulle-{{ message.role }}">
+                    <p>{{ message.contenu|linebreaksbr }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <div class="chat-accueil">
+                <div class="chat-accueil-icone"><i class='bx bxs-leaf'></i></div>
+                <h3>Comment puis-je vous aider ?</h3>
+                <p>Posez-moi une question sur vos cultures, le sol, le climat, les maladies des plantes ou les techniques agricoles.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <form id="form-message" class="chat-form">
+            {% csrf_token %}
+            <input type="text" id="champ-message" placeholder="Posez votre question..." autocomplete="off" required>
+            <button type="submit"><i class='bx bx-send'></i></button>
+        </form>
+
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const cadre = document.getElementById('chat-cadre');
+    const zoneMessages = document.getElementById('chat-messages');
+    const form = document.getElementById('form-message');
+    const champMessage = document.getElementById('champ-message');
+
+    if (!cadre || !zoneMessages || !form || !champMessage) {
+        console.error("Chatbot : un élément attendu est introuvable dans la page.");
+        return;
+    }
+
+    const conversationId = cadre.dataset.conversationId;
+    const csrfInput = form.querySelector('[name=csrfmiddlewaretoken]');
+
+    function creerLigneBulle(role, texte) {
+        const ligne = document.createElement('div');
+        ligne.className = 'bulle-ligne bulle-ligne-' + role;
+
+        const avatar = document.createElement('div');
+        avatar.className = 'bulle-avatar bulle-avatar-' + role;
+        avatar.innerHTML = role === 'user' ? "<i class='bx bx-user'></i>" : "<i class='bx bxs-leaf'></i>";
+
+        const bulle = document.createElement('div');
+        bulle.className = 'bulle bulle-' + role;
+        const p = document.createElement('p');
+        p.textContent = texte;
+        bulle.appendChild(p);
+
+        ligne.appendChild(avatar);
+        ligne.appendChild(bulle);
+        return ligne;
+    }
+
+    function ajouterBulle(role, texte) {
+        const accueil = zoneMessages.querySelector('.chat-accueil');
+        if (accueil) accueil.remove();
+
+        zoneMessages.appendChild(creerLigneBulle(role, texte));
+        zoneMessages.scrollTop = zoneMessages.scrollHeight;
+    }
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const texte = champMessage.value.trim();
+        if (!texte) return;
+
+        ajouterBulle('user', texte);
+        champMessage.value = '';
+        champMessage.disabled = true;
+
+        const ligneChargement = document.createElement('div');
+        ligneChargement.className = 'bulle-ligne bulle-ligne-assistant';
+        ligneChargement.innerHTML =
+            '<div class="bulle-avatar bulle-avatar-assistant"><i class="bx bxs-leaf"></i></div>' +
+            '<div class="bulle bulle-assistant bulle-chargement"><span></span><span></span><span></span></div>';
+        zoneMessages.appendChild(ligneChargement);
+        zoneMessages.scrollTop = zoneMessages.scrollHeight;
+
+        fetch('/assistant/' + conversationId + '/envoyer/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': csrfInput.value,
+            },
+            body: 'message=' + encodeURIComponent(texte),
+        })
+            .then(function (reponse) {
+                if (!reponse.ok) {
+                    throw new Error('Statut HTTP ' + reponse.status);
+                }
+                return reponse.json();
+            })
+            .then(function (donnees) {
+                ligneChargement.remove();
+                ajouterBulle('assistant', donnees.reponse);
+            })
+            .catch(function (erreur) {
+                console.error('Erreur chatbot :', erreur);
+                ligneChargement.remove();
+                ajouterBulle('assistant', "Une erreur est survenue, réessayez.");
+            })
+            .finally(function () {
+                champMessage.disabled = false;
+                champMessage.focus();
+            });
+    });
+
+    zoneMessages.scrollTop = zoneMessages.scrollHeight;
+});
+</script>
+{% endblock %}

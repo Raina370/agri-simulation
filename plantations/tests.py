@@ -4,6 +4,7 @@ from users.models import Utilisateur
 from agriculture.models import Region, Departement, Culture, Sol
 from .models import Plantation
 from datetime import date, timedelta
+from django.contrib.auth.hashers import make_password
 
 
 class PlantationModelTest(TestCase):
@@ -20,7 +21,7 @@ class PlantationModelTest(TestCase):
         )
         self.sol = Sol.objects.create(type_sol="Inconnu")
         self.utilisateur = Utilisateur.objects.create_user(
-            username="testagri", password="motdepasse123",
+            username="testagri", password=make_password("motdepasse123"),
             date_naissance=date(1990, 1, 1), sexe="H", ville="Bafoussam",
             telephone="670000000", region="Ouest", email="test@test.com",
         )
@@ -52,12 +53,12 @@ class PermissionsPlantationTest(TestCase):
         self.sol = Sol.objects.create(type_sol="Inconnu")
 
         self.utilisateur_a = Utilisateur.objects.create_user(
-            username="agriculteur_a", password="motdepasse123",
+            username="agriculteur_a", password=make_password("motdepasse123"),
             date_naissance=date(1990, 1, 1), sexe="H", ville="Bafoussam",
             telephone="670000000", region="Ouest", email="a@test.com",
         )
         self.utilisateur_b = Utilisateur.objects.create_user(
-            username="agriculteur_b", password="motdepasse123",
+            username="agriculteur_b", password=make_password("motdepasse123"),
             date_naissance=date(1990, 1, 1), sexe="F", ville="Bafoussam",
             telephone="670000001", region="Ouest", email="b@test.com",
         )
@@ -78,7 +79,7 @@ class PermissionsPlantationTest(TestCase):
 
     def test_b_ne_peut_pas_voir_la_plantation_de_a(self):
         # On se connecte en tant que B...
-        self.client.login(username="agriculteur_b", password="motdepasse123")
+        self.client.login(username="agriculteur_b", password=make_password("motdepasse123"))
         # ...puis on essaie d'accéder à la plantation de A via son URL.
         reponse = self.client.get(reverse("detail_plantation", args=[self.plantation_a.pk]))
         # 404 = "introuvable". C'est le comportement attendu grâce à
@@ -86,7 +87,7 @@ class PermissionsPlantationTest(TestCase):
         self.assertEqual(reponse.status_code, 404)
 
     def test_a_peut_voir_sa_propre_plantation(self):
-        self.client.login(username="agriculteur_a", password="motdepasse123")
+        self.client.login(username="agriculteur_a", password=make_password("motdepasse123"))
         reponse = self.client.get(reverse("detail_plantation", args=[self.plantation_a.pk]))
         # 200 = "tout va bien, la page s'affiche".
         self.assertEqual(reponse.status_code, 200)

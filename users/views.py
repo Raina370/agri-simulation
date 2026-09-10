@@ -12,6 +12,7 @@ from django.urls import reverse_lazy
 from django.db.models import Sum, Count
 from .forms import InscriptionForm, ProfilForm
 from plantations.models import Plantation
+from django.db.models import Count, Avg
 
 
 def accueil(request):
@@ -74,9 +75,15 @@ def dashboard_agriculteur(request):
     )
 
     dernieres = plantations.order_by("-date_creation")[:3]
+
+    rendement_moyen = plantations.filter(resultat__isnull=False).aggregate(
+        moyenne=Avg("resultat__rendement_estime")
+    )["moyenne"]
+
     return render(request, "users/dashboard_agriculteur.html", {
         "nb_simulations": nb_simulations,
         "culture_top": culture_top,
+        "rendement_moyen": round(rendement_moyen, 2) if rendement_moyen else None,
         "dernieres": dernieres
     })
 @login_required

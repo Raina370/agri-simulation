@@ -405,6 +405,7 @@
   line-height: 1.5;
 }
 
+
 /* --- Illustration seule (usage futur, une fois des simulations presentes) --- */
 
 .illustration-seule {
@@ -480,4 +481,14 @@
     align-items: flex-start;
     text-align: left;
   }
+}
+
+.lien-voir-tout {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 1.4rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--vert-foret);
 }

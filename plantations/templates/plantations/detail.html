@@ -2,43 +2,187 @@
 {% load static %}
 
 {% block title %}Résultats {{ plantation.culture.nom }} - AgriSim{% endblock %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/simulation.css' %}">
-<link rel="stylesheet" href="{% static 'css/profil.css' %}">
+<link rel="stylesheet" href="{% static 'css/detail_resultats.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="simulation-page">
-    <p class="resultat-eyebrow">RAPPORT DE SIMULATION #{{ plantation.pk }}</p>
-    <h1>Résultats {{ plantation.culture.nom }} - {{ plantation.region.nom }}</h1>
-    <p class="section-intro-gauche">{{ plantation.departement.nom }}, Région de l'{{ plantation.region.nom }} • Sol {{ plantation.sol.type_sol }}</p>
+<div class="resultats-page">
 
-    <div class="carte-profil">
-        <h2><i class='bx bx-map-pin'></i> Détails de la parcelle</h2>
-        <div class="profil-champ">
-            <span class="profil-champ-label">Nom de la parcelle</span>
-            <span class="profil-champ-valeur">{{ plantation.nom_parcelle }}</span>
+    <!-- ========== HEADER ========== -->
+    <div class="resultats-header">
+        <div class="resultats-header-left">
+            <p class="resultat-eyebrow">RAPPORT DE SIMULATION #{{ plantation.pk }}</p>
+            <h1>Résultats {{ plantation.culture.nom }} - {{ plantation.region.nom }}</h1>
+            <p class="resultats-meta">
+                {{ plantation.departement.nom }}, Région de l'{{ plantation.region.nom }}
+                • {{ plantation.sol.type_sol }}
+            </p>
         </div>
-        <div class="profil-champ">
-            <span class="profil-champ-label">Superficie</span>
-            <span class="profil-champ-valeur">{{ plantation.superficie }} hectares</span>
-        </div>
-        <div class="profil-champ">
-            <span class="profil-champ-label">Date de plantation</span>
-            <span class="profil-champ-valeur">{{ plantation.date_plantation|date:"d M Y" }}</span>
+
+        <div class="resultats-header-actions">
+            <a href="{% url 'creer_plantation' %}" class="btn-outline">
+                Nouvelle simulation
+            </a>
+            <a href="{% url 'telecharger_pdf' plantation.pk %}" class="btn-primary">
+                <i class='bx bx-download'></i> Télécharger
+            </a>
         </div>
     </div>
 
-    <div class="carte-profil carte-resultat-attente">
-        <i class='bx bx-time-five'></i>
-        <h2>Résultats en cours de préparation</h2>
-        <p>Le rendement estimé, le niveau de risque et les recommandations agricoles seront calculés automatiquement par notre moteur de simulation, bientôt disponible.</p>
+    <!-- ========== LIGNE 1 : RENDEMENT + RISQUE ========== -->
+    <div class="resultats-grid-top">
+
+        <!-- Card Rendement -->
+        <div class="card-resultat card-rendement">
+            <div class="card-rendement-content">
+                <p class="card-label">Rendement Estimé</p>
+                <div class="rendement-valeur">
+                    <span class="rendement-nombre">{{ resultat.rendement_estime }}</span>
+                    <span class="rendement-unite">Tonnes/ha</span>
+                </div>
+                {% if plantation.culture.rendement_reference %}
+                <p class="rendement-comparaison">
+                    {% widthratio resultat.rendement_estime plantation.culture.rendement_reference 100 as pourcentage %}
+                    {% if pourcentage >= 100 %}
+                        +{{ pourcentage|add:"-100" }}% par rapport au potentiel de référence
+                    {% else %}
+                        {{ pourcentage }}% du potentiel de référence
+                    {% endif %}
+                </p>
+                {% endif %}
+            </div>
+            <div class="card-rendement-icone">
+                <i class='bx bx-leaf'></i>
+            </div>
+        </div>
+
+        <!-- Card Niveau de Risque -->
+        <div class="card-resultat card-risque">
+            <div class="card-risque-header">
+                <i class='bx bx-error-circle'></i>
+                <span>Niveau de Risque</span>
+            </div>
+
+            <div class="risque-cercle 
+                {% if resultat.niveau_risque == 'Faible' %}risque-faible
+                {% elif resultat.niveau_risque == 'Modéré' %}risque-modere
+                {% else %}risque-eleve{% endif %}">
+                <span>{{ resultat.niveau_risque }}</span>
+            </div>
+
+            <p class="risque-description">
+                {% if risques %}
+                    {{ risques.first.description }}
+                {% else %}
+                    Conditions analysées selon les données disponibles.
+                {% endif %}
+            </p>
+        </div>
     </div>
 
-    <div style="text-align: center; margin-top: 1.5rem;">
-        <a href="{% url 'modifier_plantation' plantation.pk %}" class="btn-accent">
+    <!-- ========== LIGNE 2 : CLIMAT + PARAMÈTRES ========== -->
+    <div class="resultats-grid-middle">
+
+        <!-- Conditions Climatiques -->
+        <div class="card-resultat">
+            <div class="card-header-soft">
+                <i class='bx bx-cloud'></i>
+                <span>Conditions Climatiques</span>
+            </div>
+
+            <div class="info-list">
+                <div class="info-row">
+                    <div class="info-label">
+                        <i class='bx bx-thermometer'></i>
+                        Température Moyenne
+                    </div>
+                    <div class="info-value">
+                        {% if resultat.temperature_estimee is not None %}
+                            {{ resultat.temperature_estimee }}°C
+                        {% else %}
+                            Non disponible
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">
+                        <i class='bx bx-droplet'></i>
+                        Précipitations Estimées
+                    </div>
+                    <div class="info-value">
+                        {% if resultat.pluie_estimee is not None %}
+                            {{ resultat.pluie_estimee }} mm
+                        {% else %}
+                            Non disponible
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">
+                        <i class='bx bx-sun'></i>
+                        Risque climatique
+                    </div>
+                    <div class="info-value">
+                        {{ resultat.risque_climatique|default:"—" }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Résumé des Paramètres -->
+        <div class="card-resultat">
+            <div class="card-header-soft">
+                <i class='bx bx-list-ul'></i>
+                <span>Résumé des Paramètres</span>
+            </div>
+
+            <div class="params-grid">
+                <div class="param-item">
+                    <span class="param-label">CULTURE</span>
+                    <span class="param-value">{{ plantation.culture.nom }}</span>
+                </div>
+                <div class="param-item">
+                    <span class="param-label">SUPERFICIE</span>
+                    <span class="param-value">{{ plantation.superficie }} Hectares</span>
+                </div>
+                <div class="param-item">
+                    <span class="param-label">DATE DE SEMIS</span>
+                    <span class="param-value">{{ plantation.date_plantation|date:"d M Y" }}</span>
+                </div>
+                <div class="param-item">
+                    <span class="param-label">TYPE DE SOL</span>
+                    <span class="param-value">{{ plantation.sol.type_sol }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== RECOMMANDATIONS ========== -->
+    <div class="card-recommandations">
+        <div class="recommandations-header">
+            <i class='bx bx-map-pin'></i>
+            <span>Recommandations Agricoles</span>
+        </div>
+        <ul class="recommandations-list">
+            {% for recommandation in recommandations %}
+                <li>{{ recommandation.texte }}</li>
+            {% empty %}
+                <li>Les conditions estimées sont favorables. Maintenez un suivi régulier de la plantation.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Bouton modifier (optionnel) -->
+    <div class="resultats-footer-actions">
+        <a href="{% url 'modifier_plantation' plantation.pk %}" class="btn-outline">
             <i class='bx bx-edit'></i> Modifier cette simulation
         </a>
     </div>
+
 </div>
 {% endblock %}

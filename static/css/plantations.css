@@ -110,3 +110,103 @@
 .detail-plantation strong {
   color: var(--vert-foret);
 }
+
+.carte-plantation-actions {
+  display: flex;
+  gap: 0.9rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--bordure);
+  font-size: 0.82rem;
+  flex-wrap: wrap;
+}
+
+.carte-plantation-actions a,
+.carte-plantation-actions button {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: none;
+  border: none;
+  color: var(--vert-foret);
+  font-weight: 600;
+  font-size: 0.82rem;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+}
+
+.lien-supprimer {
+  color: #A0421F !important;
+}
+
+.modal-suppression {
+  position: fixed;
+  inset: 0;
+  background: rgba(22, 40, 29, 0.65);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1.5rem;
+}
+
+.modal-suppression-visible {
+  display: flex;
+}
+
+.modal-suppression-contenu {
+  background: #fff;
+  border-radius: 18px;
+  padding: 2.25rem 2rem;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.modal-suppression-contenu i {
+  font-size: 2.2rem;
+  color: #A0421F;
+  margin-bottom: 0.85rem;
+}
+
+.modal-suppression-contenu h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-suppression-contenu p {
+  color: var(--sous-texte);
+  font-size: 0.88rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-suppression-boutons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.modal-suppression-boutons form {
+  flex: 1;
+}
+
+.btn-annuler, .btn-supprimer {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn-annuler {
+  background: var(--fond);
+  color: var(--texte);
+}
+
+.btn-supprimer {
+  background: #A0421F;
+  color: #fff;
+}

@@ -1,10 +1,10 @@
 {% extends "base_app.html" %}
-
 {% load static %}
+
 {% block title %}Accueil - AgriSim{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/plantations.css' %}">{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 <div class="dashboard-accueil">
 
     <div class="banniere-bienvenue">
@@ -14,9 +14,10 @@
         </div>
         <div class="banniere-icone"><i class='bx bxs-leaf'></i></div>
     </div>
-<a href="{% url 'creer_plantation' %}" class="btn-nouvelle-simulation">
-    <i class='bx bx-play-circle'></i> Nouvelle simulation
-</a>
+
+    <a href="{% url 'creer_plantation' %}" class="btn-nouvelle-simulation">
+        <i class='bx bx-plus-circle'></i> Nouvelle simulation
+    </a>
 
     <div class="stats-grille">
         <div class="carte-stat">
@@ -38,22 +39,42 @@
         <div class="carte-stat">
             <div class="carte-stat-icone icone-bleu"><i class='bx bxs-thermometer'></i></div>
             <div class="carte-stat-label">Rendement moyen estimé</div>
-            <p class="carte-stat-vide">Disponible après simulation</p>
+            {% if rendement_moyen %}
+                <div class="carte-stat-valeur">{{ rendement_moyen }} <span>t/ha</span></div>
+            {% else %}
+                <p class="carte-stat-vide">Disponible après simulation</p>
+            {% endif %}
         </div>
     </div>
-       
-    <div class="section-dernieres">
-    <h2>Dernières simulations</h2>
 
-    <div class="carte-vide-simulation">
-       <img src="{% static 'images/dashboard.png' %}?v=2" alt="Aucune simulation" class="illustration-vide">
-        <div class="carte-vide-texte">
-            <p>Aucune simulation récente. Commencez par planifier une nouvelle culture !</p>
-            <a href="{% url 'creer_plantation' %}" class="btn-nouvelle-simulation">
-                <i class='bx bx-play-circle'></i> Lancer une nouvelle simulation
+    <div class="section-dernieres">
+        <h2>Dernières simulations</h2>
+
+        {% if dernieres %}
+        <div class="liste-dernieres">
+            {% for plantation in dernieres %}
+            <a href="{% url 'detail_plantation' plantation.pk %}" class="ligne-derniere">
+                <div class="ligne-derniere-icone"><i class='bx bxs-leaf'></i></div>
+                <div class="ligne-derniere-texte">
+                    <strong>{{ plantation.nom_parcelle }} - {{ plantation.culture.nom }}</strong>
+                    <span>{{ plantation.date_plantation|date:"d M Y" }} • Sol {{ plantation.sol.type_sol }}</span>
+                </div>
+                <i class='bx bx-chevron-right'></i>
             </a>
+            {% endfor %}
         </div>
+        <a href="{% url 'liste_plantations' %}" class="lien-voir-tout">Voir plus <i class='bx bx-right-arrow-alt'></i></a>
+        {% else %}
+        <div class="carte-vide-simulation">
+            <img src="{% static 'images/dashboard.png' %}" alt="Aucune simulation" class="illustration-vide">
+            <div class="carte-vide-texte">
+                <p>Aucune simulation récente. Commencez par planifier une nouvelle culture !</p>
+                <a href="{% url 'creer_plantation' %}" class="btn-nouvelle-simulation">
+                    <i class='bx bx-play-circle'></i> Lancer une nouvelle simulation
+                </a>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </div>
-    
 {% endblock %}
