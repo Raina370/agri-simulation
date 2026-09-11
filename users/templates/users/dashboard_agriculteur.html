@@ -46,35 +46,40 @@
             {% endif %}
         </div>
     </div>
-
     <div class="section-dernieres">
-        <h2>Dernières simulations</h2>
-
+    <h2>Dernières simulations</h2>
         {% if dernieres %}
-        <div class="liste-dernieres">
-            {% for plantation in dernieres %}
-            <a href="{% url 'detail_plantation' plantation.pk %}" class="ligne-derniere">
-                <div class="ligne-derniere-icone"><i class='bx bxs-leaf'></i></div>
-                <div class="ligne-derniere-texte">
-                    <strong>{{ plantation.nom_parcelle }} - {{ plantation.culture.nom }}</strong>
-                    <span>{{ plantation.date_plantation|date:"d M Y" }} • Sol {{ plantation.sol.type_sol }}</span>
-                </div>
-                <i class='bx bx-chevron-right'></i>
+<div class="sim-groupe">
+    {% for plantation in dernieres %}
+    <a href="{% url 'detail_plantation' plantation.pk %}" class="sim-ligne">
+        
+        <!-- Icône à gauche (tu peux changer l’icône selon la culture plus tard) -->
+        <div class="sim-icone">
+            <i class='bx bx-leaf'></i>
+        </div>
+
+        <div class="sim-texte">
+            <strong>{{ plantation.nom_parcelle }} - {{ plantation.culture.nom }}</strong>
+            <span>{{ plantation.date_plantation|date:"d M Y" }} • Sol {{ plantation.sol.type_sol }}</span>
+        </div>
+
+        <i class='bx bx-chevron-right sim-fleche'></i>
+    </a>
+    {% endfor %}
+</div>
+<a href="{% url 'liste_plantations' %}" class="lien-voir-tout">Voir plus <i class='bx bx-right-arrow-alt'></i></a>
+{% else %}
+    
+    <div class="carte-vide-simulation">
+        <img src="{% static 'images/dashboard.png' %}" alt="Aucune simulation" class="illustration-vide">
+        <div class="carte-vide-texte">
+            <p>Aucune simulation récente. Commencez par planifier une nouvelle culture !</p>
+            <a href="{% url 'creer_plantation' %}" class="btn-nouvelle-simulation">
+                <i class='bx bx-play-circle'></i> Lancer une nouvelle simulation
             </a>
-            {% endfor %}
         </div>
-        <a href="{% url 'liste_plantations' %}" class="lien-voir-tout">Voir plus <i class='bx bx-right-arrow-alt'></i></a>
-        {% else %}
-        <div class="carte-vide-simulation">
-            <img src="{% static 'images/dashboard.png' %}" alt="Aucune simulation" class="illustration-vide">
-            <div class="carte-vide-texte">
-                <p>Aucune simulation récente. Commencez par planifier une nouvelle culture !</p>
-                <a href="{% url 'creer_plantation' %}" class="btn-nouvelle-simulation">
-                    <i class='bx bx-play-circle'></i> Lancer une nouvelle simulation
-                </a>
-            </div>
-        </div>
-        {% endif %}
     </div>
+    {% endif %}
+</div>        
 </div>
 {% endblock %}

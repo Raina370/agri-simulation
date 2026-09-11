@@ -26,15 +26,34 @@
 
 .grille-plantations {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.1rem;
+  width: 100%;
+}
+
+@media (max-width: 1300px) {
+  .grille-plantations {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .grille-plantations {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .grille-plantations {
+    grid-template-columns: 1fr;
+  }
 }
 
 .carte-plantation {
   background: var(--carte);
   border: 1px solid var(--bordure);
   border-radius: 12px;
-  padding: 1.5rem;
+  padding: 1.4rem;
   box-shadow: 0 2px 6px rgba(31, 61, 43, 0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -44,21 +63,6 @@
   box-shadow: 0 10px 24px rgba(31, 61, 43, 0.16);
 }
 
-.carte-plantation-icone {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: var(--vert-foret);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 0.85rem;
-}
-
-.carte-plantation-icone i {
-  color: #fff;
-  font-size: 1.2rem;
-}
 
 .carte-plantation h3 {
   font-size: 1.05rem;
@@ -209,4 +213,7 @@
 .btn-supprimer {
   background: #A0421F;
   color: #fff;
+}
+.page-simulations {
+  width: 100%;
 }

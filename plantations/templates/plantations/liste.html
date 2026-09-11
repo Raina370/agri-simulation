@@ -5,7 +5,7 @@
 {% block extra_css %}<link rel="stylesheet" href="{% static 'css/plantations.css' %}">{% endblock %}
 
 {% block content %}
-<div class="dashboard">
+<div class="page-simulations">
     <div class="dashboard-header">
         <h1>Mes simulations</h1>
         <a href="{% url 'creer_plantation' %}" class="btn-accent">
@@ -17,7 +17,6 @@
     <div class="grille-plantations">
         {% for plantation in plantations %}
         <div class="carte-plantation">
-            <div class="carte-plantation-icone"><i class='bx bxs-leaf'></i></div>
             <h3>{{ plantation.nom_parcelle }}</h3>
             <p class="carte-plantation-culture">{{ plantation.culture.nom }}</p>
             <p><i class='bx bx-map-alt'></i> {{ plantation.region.nom }}, {{ plantation.departement.nom }}</p>

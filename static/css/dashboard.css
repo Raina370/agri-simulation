@@ -1,27 +1,31 @@
 /* ============================================
    SIDEBAR
    ============================================ */
-
 .app-layout {
-  min-height: 100vh;
+    display: flex;
+    min-height: 100vh;
+    background: var(--fond);
 }
 
 .sidebar {
-  width: 250px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  background: #2F6B45;
-  display: flex;
-  flex-direction: column;
-  padding: 1.75rem 1.1rem;
-  overflow-y: auto;
+    width: 250px;
+    flex-shrink: 0;
+    position: fixed;
+    background: #2F6B45;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    transition: transform 0.25s ease;
+    display:flex;
+    flex-direction:column;
+    padding:32px 16px 24px;
 }
+
+
 .sidebar-logo {
   font-family: "Fraunces", serif;
   font-weight: 600;
-  font-size: 1.3rem;
+  font-size: 1.45rem;
   color: #fff;
   display: flex;
   align-items: center;
@@ -138,13 +142,13 @@
 /* ============================================
    ZONE DE CONTENU
    ============================================ */
-
 .app-contenu {
-  margin-left: 250px;
-  padding: 2.25rem 2.75rem;
-  min-width: 0;
-  background: var(--fond);
+    flex: 1;
+    margin-left: 250px;
+    padding: 2.25rem 2.75rem;
+    background: var(--fond);
 }
+
 
 .app-messages {
   margin-bottom: 1.5rem;
@@ -483,12 +487,92 @@
   }
 }
 
-.lien-voir-tout {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  margin-top: 1.4rem;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--vert-foret);
+/* ========== Dernières simulations - style cartes ========== */
+
+.section-dernieres .sim-groupe {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.75rem !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  border: none !important;
+}
+
+.section-dernieres .sim-ligne {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  padding: 1.1rem 1.35rem !important;
+  background: #ffffff !important;
+  border-radius: 16px !important;
+  text-decoration: none !important;
+  color: var(--texte) !important;
+  box-shadow: 0 2px 10px rgba(31, 61, 43, 0.07) !important;
+  border: 1px solid #EEEEE4 !important;
+  transition: all 0.18s ease !important;
+  margin: 0 !important;
+}
+
+.section-dernieres .sim-ligne:hover {
+  background: #FAFAF2 !important;
+  box-shadow: 0 5px 18px rgba(31, 61, 43, 0.11) !important;
+  transform: translateY(-1px) !important;
+  text-decoration: none !important;
+}
+
+.section-dernieres .sim-icone {
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  border-radius: 12px !important;
+  background: #E8F5E9 !important;
+  color: #2E7D32 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  font-size: 1.25rem !important;
+}
+
+.section-dernieres .sim-texte {
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+.section-dernieres .sim-texte strong {
+  display: block !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  margin-bottom: 0.2rem !important;
+  color: var(--texte) !important;
+}
+
+.section-dernieres .sim-texte span {
+  font-size: 0.8rem !important;
+  color: var(--sous-texte) !important;
+}
+
+.section-dernieres .sim-fleche {
+  color: #A0A89A !important;
+  font-size: 1.25rem !important;
+  flex-shrink: 0 !important;
+}
+
+.section-dernieres .sim-ligne:hover .sim-fleche {
+  color: var(--vert-foret) !important;
+}
+
+.section-dernieres .lien-voir-tout {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+  margin-top: 1.4rem !important;
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  color: var(--vert-foret) !important;
 }

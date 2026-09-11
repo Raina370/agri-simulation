@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 from decouple import config # ajout 1
 
@@ -147,4 +148,4 @@ LOGIN_REDIRECT_URL = "dashboard"
 LOGOUT_REDIRECT_URL = "connexion"
 
 OPENWEATHER_API_KEY = config('OPENWEATHER_API_KEY')
-GEMINI_API_KEY = config('GEMINI_API_KEY')
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')  # ajout

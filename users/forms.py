@@ -18,17 +18,9 @@ class InscriptionForm(UserCreationForm):
     class Meta:
         model = Utilisateur
         fields = [
-             "last_name",
-            "first_name",
-            "date_naissance",
-            "sexe",
-            "region",
-            "ville",
-            "telephone",
-            "email",
-            "username",
-            "description",
-        ]
+    "last_name", "first_name", "date_naissance", "sexe",
+    "region", "ville", "telephone", "email", "username",
+]
         widgets = {
             "date_naissance": forms.DateInput(attrs={"type": "date"}),
         }
@@ -42,7 +34,7 @@ class InscriptionForm(UserCreationForm):
             "telephone": "Téléphone",
             "email": "Adresse email",
             "username": "Nom d'utilisateur",
-            "description": "Description (optionnel)",
+            
         }
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
