@@ -148,4 +148,4 @@ LOGIN_REDIRECT_URL = "dashboard"
 LOGOUT_REDIRECT_URL = "connexion"
 
 OPENWEATHER_API_KEY = config('OPENWEATHER_API_KEY')
-GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')  # ajout
+GEMINI_API_KEY = config('GEMINI_API_KEY')  # ajout

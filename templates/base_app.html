@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -15,39 +14,39 @@
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
-    
 <body>
+    <button type="button" class="burger-btn" id="burger-btn">
+        <i class='bx bx-menu'></i>
+    </button>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
     <div class="app-layout">
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-logo">
                 <i class='bx bxs-leaf'></i> AgriSim
             </div>
 
-           <nav class="sidebar-nav">
-    <a href="{% url 'dashboard' %}" class="sidebar-item {% if request.resolver_match.url_name == 'dashboard_agriculteur' %}sidebar-item-actif{% endif %}">
-        <i class='bx bx-home-alt'></i> Accueil
-    </a>
-    
-
-    <a href="{% url 'creer_plantation' %}" class="sidebar-item {% if request.resolver_match.url_name == 'creer_plantation' or request.resolver_match.url_name == 'simulation_confirmation' or request.resolver_match.url_name == 'detail_plantation' %}sidebar-item-actif{% endif %}">
-        <i class='bx bx-play-circle'></i> Simulation
-    </a>
-    
-<a href="{% url 'liste_plantations' %}" class="sidebar-item {% if request.resolver_match.url_name == 'liste_plantations' %}sidebar-item-actif{% endif %}">
-    <i class='bx bx-list-ul'></i> Mes simulations
-</a>
-
-    <a href="{% url 'profil' %}" class="sidebar-item {% if 'profil' in request.resolver_match.url_name %}sidebar-item-actif{% endif %}">
-        <i class='bx bx-user'></i> Profil
-    </a>
-
-   <a href="{% url 'liste_conversations' %}" class="sidebar-item {% if 'conversation' in request.resolver_match.url_name %}sidebar-item-actif{% endif %}">
-        <i class='bx bx-message-dots'></i> Assistance IA
-    </a> 
-</nav> 
+            <nav class="sidebar-nav">
+                <a href="{% url 'dashboard' %}" class="sidebar-item {% if request.resolver_match.url_name == 'dashboard_agriculteur' %}sidebar-item-actif{% endif %}">
+                    <i class='bx bx-home-alt'></i> <span>Accueil</span>
+                </a>
+                <a href="{% url 'creer_plantation' %}" class="sidebar-item {% if request.resolver_match.url_name == 'creer_plantation' or request.resolver_match.url_name == 'modifier_plantation' %}sidebar-item-actif{% endif %}">
+                    <i class='bx bx-play-circle'></i> <span>Simulation</span>
+                </a>
+                <a href="{% url 'liste_plantations' %}" class="sidebar-item {% if request.resolver_match.url_name == 'liste_plantations' or request.resolver_match.url_name == 'detail_plantation' %}sidebar-item-actif{% endif %}">
+                    <i class='bx bx-list-ul'></i> <span>Mes simulations</span>
+                </a>
+                <a href="{% url 'profil' %}" class="sidebar-item {% if request.resolver_match.url_name == 'profil' or request.resolver_match.url_name == 'profil_modifier' %}sidebar-item-actif{% endif %}">
+                    <i class='bx bx-user'></i> <span>Profil</span>
+                </a>
+                <a href="{% url 'liste_conversations' %}" class="sidebar-item {% if request.resolver_match.url_name == 'liste_conversations' or request.resolver_match.url_name == 'conversation_detail' %}sidebar-item-actif{% endif %}">
+                    <i class='bx bx-message-dots'></i> <span>Assistance IA</span>
+                </a>
+            </nav>
 
             <a href="{% url 'deconnexion' %}" class="sidebar-item sidebar-deconnexion">
-                <i class='bx bx-log-out'></i> Déconnexion
+                <i class='bx bx-log-out'></i> <span>Déconnexion</span>
             </a>
         </aside>
 
@@ -62,6 +61,7 @@
             {% block content %}{% endblock %}
         </div>
     </div>
+    
     <script src="{% static 'JS/dashboard.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>
