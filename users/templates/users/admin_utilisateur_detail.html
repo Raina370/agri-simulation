@@ -1,0 +1,59 @@
+{% extends "base_admin.html" %}
+{% load static %}
+
+{% block title %}{{ utilisateur_cible.username }} - Admin AgriSim{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/profil.css' %}">{% endblock %}
+
+{% block content %}
+<div class="profil-page">
+    <div class="profil-entete">
+        <div class="profil-avatar">{{ utilisateur_cible.first_name|first|upper }}{{ utilisateur_cible.last_name|first|upper }}</div>
+        <div class="profil-entete-texte">
+            <h1>{{ utilisateur_cible.first_name }} {{ utilisateur_cible.last_name }}</h1>
+            <p><i class='bx bx-at'></i> {{ utilisateur_cible.username }}</p>
+        </div>
+    </div>
+
+    {% if messages %}{% for message in messages %}<div class="message {{ message.tags }}">{{ message }}</div>{% endfor %}{% endif %}
+
+    <div class="profil-grille">
+        <div class="carte-profil">
+            <h2><i class='bx bx-id-card'></i> Coordonnées</h2>
+            <div class="profil-champ"><span class="profil-champ-label">Email</span><span class="profil-champ-valeur">{{ utilisateur_cible.email }}</span></div>
+            <div class="profil-champ"><span class="profil-champ-label">Téléphone</span><span class="profil-champ-valeur">{{ utilisateur_cible.telephone }}</span></div>
+            <div class="profil-champ"><span class="profil-champ-label">Région</span><span class="profil-champ-valeur">{{ utilisateur_cible.region }}, {{ utilisateur_cible.ville }}</span></div>
+        </div>
+        <div class="carte-profil">
+            <h2><i class='bx bx-bar-chart-alt-2'></i> Activité</h2>
+            <div class="profil-champ"><span class="profil-champ-label">Simulations effectuées</span><span class="profil-champ-valeur">{{ nb_simulations }}</span></div>
+            <div class="profil-champ"><span class="profil-champ-label">Inscrit le</span><span class="profil-champ-valeur">{{ utilisateur_cible.date_joined|date:"d M Y" }}</span></div>
+        </div>
+    </div>
+
+    <div class="carte-profil">
+        <h2><i class='bx bx-cog'></i> Actions administrateur</h2>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" name="toggle_actif" class="profil-action" style="width:100%; border:none; background:none; text-align:left; cursor:pointer;">
+                <span><i class='bx bx-power-off'></i> {% if utilisateur_cible.is_active %}Désactiver ce compte{% else %}Réactiver ce compte{% endif %}</span>
+                <i class='bx bx-chevron-right'></i>
+            </button>
+        </form>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" name="toggle_staff" class="profil-action" style="width:100%; border:none; background:none; text-align:left; cursor:pointer;">
+                <span><i class='bx bx-shield'></i> {% if utilisateur_cible.is_staff %}Retirer les droits admin{% else %}Promouvoir administrateur{% endif %}</span>
+                <i class='bx bx-chevron-right'></i>
+            </button>
+        </form>
+        <form method="post" action="{% url 'admin_supprimer_utilisateur' utilisateur_cible.pk %}" onsubmit="return confirm('Supprimer définitivement ce compte ?');">
+            {% csrf_token %}
+            <button type="submit" class="profil-action profil-action-danger" style="width:100%; border:none; background:none; text-align:left; cursor:pointer;">
+                <span><i class='bx bx-trash'></i> Supprimer ce compte</span>
+            </button>
+        </form>
+    </div>
+
+    <p class="lien-secondaire"><a href="{% url 'admin_utilisateurs' %}">← Retour à la liste</a></p>
+</div>
+{% endblock %}

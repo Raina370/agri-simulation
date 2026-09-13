@@ -1,0 +1,17 @@
+{% extends "base_admin.html" %}
+
+{% block title %}{{ titre }} - Admin AgriSim{% endblock %}
+
+{% block content %}
+<div class="page">
+    <div class="carte">
+        <h1>{{ titre }}</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn-principal"><i class='bx bx-check'></i> Enregistrer</button>
+        </form>
+        <p class="lien-secondaire"><a href="{% url 'admin_sols' %}">← Retour à la liste</a></p>
+    </div>
+</div>
+{% endblock %}

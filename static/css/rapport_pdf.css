@@ -1,0 +1,148 @@
+@page {
+    size: A4;
+    margin: 2cm 1.8cm 2cm 1.8cm;
+}
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.45;
+    color: #1f2937;
+}
+
+/* ----- En-tête ----- */
+.header {
+    border-bottom: 2.5px solid #2F6B45;
+    padding-bottom: 12px;
+    margin-bottom: 22px;
+}
+
+.eyebrow {
+    font-size: 9pt;
+    font-weight: bold;
+    color: #6b7280;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    margin: 0 0 4px 0;
+}
+
+h1 {
+    font-size: 18pt;
+    font-weight: bold;
+    color: #1F3D2B;
+    margin: 0 0 6px 0;
+    line-height: 1.25;
+}
+
+.sous-titre {
+    font-size: 11pt;
+    color: #4b5563;
+    margin: 0;
+}
+
+/* ----- Sections ----- */
+.section {
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 12.5pt;
+    font-weight: bold;
+    color: #1F3D2B;
+    background-color: #e8f5ec;
+    padding: 7px 10px;
+    margin: 0 0 10px 0;
+    border-left: 4px solid #2F6B45;
+}
+
+/* ----- Tableaux ----- */
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 4px;
+}
+
+.info-table td {
+    padding: 6px 8px;
+    vertical-align: top;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.info-table tr:last-child td {
+    border-bottom: none;
+}
+
+.label {
+    width: 42%;
+    color: #6b7280;
+    font-size: 10.5pt;
+}
+
+.valeur {
+    font-weight: bold;
+    color: #1f2937;
+    font-size: 11pt;
+}
+
+.resultat-principal {
+    font-size: 13pt;
+    color: #1e5c38;
+}
+
+.resultat-secondaire {
+    font-size: 12pt;
+    color: #b5651d;
+}
+
+/* ----- Listes ----- */
+ul {
+    margin: 6px 0 0 0;
+    padding-left: 18px;
+}
+
+li {
+    margin-bottom: 7px;
+    line-height: 1.45;
+    text-align: justify;
+}
+
+.risque-item {
+    margin-bottom: 8px;
+}
+
+.badge {
+    font-weight: bold;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 9.5pt;
+}
+
+.badge-eleve {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+.badge-modere {
+    background-color: #fef3c7;
+    color: #b45309;
+}
+
+.badge-faible {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.texte-vide {
+    color: #6b7280;
+    margin: 0;
+}
+
+/* ----- Pied de page ----- */
+.footer {
+    margin-top: 28px;
+    padding-top: 10px;
+    border-top: 1px solid #d1d5db;
+    font-size: 9pt;
+    color: #9ca3af;
+    text-align: center;
+}

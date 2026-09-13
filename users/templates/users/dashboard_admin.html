@@ -1,9 +1,39 @@
-{% extends "base.html" %}
+{% extends "base_admin.html" %}
 
-{% block title %}Tableau de bord Administrateur{% endblock %}
+{% block title %}Vue d'ensemble - Admin AgriSim{% endblock %}
 
 {% block content %}
-<h1>Espace Administrateur</h1>
-<p>Bienvenue, {{ user.username }}.</p>
-<a href="{% url 'deconnexion' %}">Se déconnecter</a>
+<div class="banniere-bienvenue">
+    <div class="banniere-texte">
+        <h1>Tableau de bord administrateur</h1>
+        <p class="sous-titre">Vue d'ensemble de la plateforme AgriSim.</p>
+    </div>
+    <div class="banniere-icone"><i class='bx bxs-shield-quarter'></i></div>
+</div>
+
+<div class="stats-grille stats-grille-5">
+    <div class="carte-stat"><div class="carte-stat-icone icone-vert"><i class='bx bx-group'></i></div><div class="carte-stat-label">Agriculteurs</div><div class="carte-stat-valeur">{{ stats.nb_utilisateurs }}</div></div>
+    <div class="carte-stat"><div class="carte-stat-icone icone-orange"><i class='bx bx-shield'></i></div><div class="carte-stat-label">Administrateurs</div><div class="carte-stat-valeur">{{ stats.nb_admins }}</div></div>
+    <div class="carte-stat"><div class="carte-stat-icone icone-bleu"><i class='bx bx-line-chart'></i></div><div class="carte-stat-label">Simulations</div><div class="carte-stat-valeur">{{ stats.nb_simulations }}</div></div>
+    <div class="carte-stat"><div class="carte-stat-icone icone-vert"><i class='bx bxs-leaf'></i></div><div class="carte-stat-label">Cultures</div><div class="carte-stat-valeur">{{ stats.nb_cultures }}</div></div>
+    <div class="carte-stat"><div class="carte-stat-icone icone-orange"><i class='bx bx-message-dots'></i></div><div class="carte-stat-label">Conversations IA</div><div class="carte-stat-valeur">{{ stats.nb_conversations }}</div></div>
+</div>
+
+<div class="section-dernieres">
+    <h2>Derniers utilisateurs inscrits</h2>
+    {% if derniers_utilisateurs %}
+    <div class="sim-groupe">
+        {% for u in derniers_utilisateurs %}
+        <a href="{% url 'admin_detail_utilisateur' u.pk %}" class="sim-ligne">
+            <div class="sim-icone icone-vert"><i class='bx bx-user'></i></div>
+            <div class="sim-texte"><strong>{{ u.first_name }} {{ u.last_name }} ({{ u.username }})</strong><span>{{ u.email }} • {{ u.date_joined|date:"d M Y" }}</span></div>
+            <i class='bx bx-chevron-right sim-fleche'></i>
+        </a>
+        {% endfor %}
+    </div>
+    <a href="{% url 'admin_utilisateurs' %}" class="lien-voir-tout">Voir tous les utilisateurs <i class='bx bx-right-arrow-alt'></i></a>
+    {% else %}
+    <p class="carte-stat-vide">Aucun utilisateur pour l'instant.</p>
+    {% endif %}
+</div>
 {% endblock %}

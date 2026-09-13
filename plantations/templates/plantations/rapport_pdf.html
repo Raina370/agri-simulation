@@ -1,58 +1,99 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-    body { font-family: Helvetica, sans-serif; font-size: 12px; color: #23281F; }
-    h1 { color: #1F3D2B; font-size: 20px; }
-    h2 { color: #1F3D2B; font-size: 14px; border-bottom: 1px solid #ccc; padding-bottom: 4px; }
-    table { width: 100%; margin-bottom: 15px; }
-    td { padding: 4px 0; }
-    .label { color: #666666; width: 50%; }
-    .valeur { font-weight: bold; }
-    .section { margin-bottom: 20px; }
-    ul { margin: 0; padding-left: 18px; }
-</style>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/rapport_pdf.css' %}">
 </head>
 <body>
-    <h1>Rapport de simulation — {{ plantation.nom_parcelle }}</h1>
-    <p>{{ plantation.culture.nom }} — {{ plantation.region.nom }}, {{ plantation.departement.nom }}</p>
 
+    <!-- ========== EN-TÊTE ========== -->
+    <div class="header">
+        <p class="eyebrow">Rapport de simulation #{{ plantation.pk }}</p>
+        <h1>Résultats {{ plantation.culture.nom }} — {{ plantation.region.nom }}</h1>
+        <p class="sous-titre">
+            {{ plantation.departement.nom }} • Sol {{ plantation.sol.type_sol }} • Parcelle : {{ plantation.nom_parcelle }}
+        </p>
+    </div>
+
+    <!-- ========== DÉTAILS DE LA PARCELLE ========== -->
     <div class="section">
-        <h2>Détails de la parcelle</h2>
-        <table>
-            <tr><td class="label">Superficie</td><td class="valeur">{{ plantation.superficie }} hectares</td></tr>
-            <tr><td class="label">Date de plantation</td><td class="valeur">{{ plantation.date_plantation|date:"d/m/Y" }}</td></tr>
-            <tr><td class="label">Type de sol</td><td class="valeur">{{ plantation.sol.type_sol }}</td></tr>
+        <div class="section-title">Détails de la parcelle</div>
+        <table class="info-table">
+            <tr>
+                <td class="label">Superficie</td>
+                <td class="valeur">{{ plantation.superficie }} hectares</td>
+            </tr>
+            <tr>
+                <td class="label">Date de plantation</td>
+                <td class="valeur">{{ plantation.date_plantation|date:"d/m/Y" }}</td>
+            </tr>
+            <tr>
+                <td class="label">Type de sol</td>
+                <td class="valeur">{{ plantation.sol.type_sol }}</td>
+            </tr>
         </table>
     </div>
 
+    <!-- ========== RÉSULTATS ========== -->
     <div class="section">
-        <h2>Résultats de la simulation</h2>
-        <table>
-            <tr><td class="label">Rendement estimé</td><td class="valeur">{{ resultat.rendement_estime }} t/ha</td></tr>
-            <tr><td class="label">Production totale estimée</td><td class="valeur">{{ resultat.production_totale }} tonnes</td></tr>
-            <tr><td class="label">Date de récolte estimée</td><td class="valeur">{{ resultat.date_recolte_estimee|date:"d/m/Y" }}</td></tr>
+        <div class="section-title">Résultats de la simulation</div>
+        <table class="info-table">
+            <tr>
+                <td class="label">Rendement estimé</td>
+                <td class="valeur resultat-principal">{{ resultat.rendement_estime }} t/ha</td>
+            </tr>
+            <tr>
+                <td class="label">Production totale estimée</td>
+                <td class="valeur resultat-secondaire">{{ resultat.production_totale }} tonnes</td>
+            </tr>
+            <tr>
+                <td class="label">Date de récolte estimée</td>
+                <td class="valeur">{{ resultat.date_recolte_estimee|date:"d/m/Y" }}</td>
+            </tr>
         </table>
     </div>
 
+    <!-- ========== RISQUES ========== -->
     <div class="section">
-        <h2>Risques identifiés</h2>
-        <ul>
-        {% for risque in risques %}
-            <li>[{{ risque.niveau }}] {{ risque.description }}</li>
-        {% endfor %}
-        </ul>
+        <div class="section-title">Risques identifiés</div>
+        {% if risques %}
+            <ul>
+            {% for risque in risques %}
+                <li class="risque-item">
+                    <span class="badge
+                        {% if risque.niveau == 'Élevé' or risque.niveau == 'Eleve' %}badge-eleve
+                        {% elif risque.niveau == 'Modéré' or risque.niveau == 'Modere' %}badge-modere
+                        {% else %}badge-faible{% endif %}">
+                        {{ risque.niveau }}
+                    </span>
+                    &nbsp;{{ risque.description }}
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p class="texte-vide">Aucun risque particulier identifié.</p>
+        {% endif %}
     </div>
 
+    <!-- ========== RECOMMANDATIONS ========== -->
     <div class="section">
-        <h2>Recommandations</h2>
-        <ul>
-        {% for recommandation in recommandations %}
-            <li>{{ recommandation.texte }}</li>
-        {% endfor %}
-        </ul>
+        <div class="section-title">Recommandations agricoles</div>
+        {% if recommandations %}
+            <ul>
+            {% for recommandation in recommandations %}
+                <li>{{ recommandation.texte }}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p class="texte-vide">Aucune recommandation particulière.</p>
+        {% endif %}
     </div>
 
-    <p style="color: #999999; font-size: 10px; margin-top: 30px;">Généré par AgriSim Cameroon — {{ plantation.date_creation|date:"d/m/Y" }}</p>
+    <!-- ========== PIED DE PAGE ========== -->
+    <div class="footer">
+        Généré par AgriSim Cameroon — {{ plantation.date_creation|date:"d/m/Y" }}
+    </div>
+
 </body>
 </html>

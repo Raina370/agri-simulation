@@ -1,0 +1,35 @@
+{% extends "base_admin.html" %}
+
+{% block title %}Cultures - Admin AgriSim{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+    <h1>Gestion des cultures</h1>
+    <a href="{% url 'admin_creer_culture' %}" class="btn-accent"><i class='bx bx-plus'></i> Nouvelle culture</a>
+</div>
+
+<div class="tableau-admin-wrapper">
+    <table class="tableau-admin">
+        <thead><tr><th>Nom</th><th>Cycle</th><th>Rendement moyen</th><th>Température</th><th>Pluviométrie</th><th></th></tr></thead>
+        <tbody>
+            {% for culture in cultures %}
+            <tr>
+                <td>{{ culture.nom }}</td>
+                <td>{{ culture.cycle_jours }} j</td>
+                <td>{{ culture.rendement_moyen }} t/ha</td>
+                <td>{{ culture.temperature_min }}-{{ culture.temperature_max }}°C</td>
+                <td>{{ culture.pluviometrie_min }}-{{ culture.pluviometrie_max }} mm</td>
+                <td>
+                    <a href="{% url 'admin_modifier_culture' culture.pk %}" class="btn-tableau">Modifier</a>
+                    <form method="post" action="{% url 'admin_supprimer_culture' culture.pk %}" style="display:inline;" onsubmit="return confirm('Supprimer cette culture ?');">
+                        {% csrf_token %}<button type="submit" class="btn-tableau btn-tableau-danger">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6" class="tableau-vide">Aucune culture enregistrée.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

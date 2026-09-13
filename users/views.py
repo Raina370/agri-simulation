@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -13,6 +13,10 @@ from django.db.models import Sum, Count
 from .forms import InscriptionForm, ProfilForm
 from plantations.models import Plantation
 from django.db.models import Count, Avg
+from django.contrib.auth import get_user_model
+from .decorators import admin_required
+from plantations.models import Plantation
+from chatbot.models import Conversation
 
 
 def accueil(request):
@@ -124,10 +128,63 @@ class MotDePasseConfirmeView(PasswordChangeDoneView):
 
 
 @login_required
+@admin_required
 def dashboard_admin(request):
-    if not request.user.is_staff:
-        return redirect("dashboard_agriculteur")
-    return render(request, "users/dashboard_admin.html")
+    Utilisateur = get_user_model()
+    from agriculture.models import Culture
 
+    stats = {
+        "nb_utilisateurs": Utilisateur.objects.filter(is_staff=False).count(),
+        "nb_admins": Utilisateur.objects.filter(is_staff=True).count(),
+        "nb_simulations": Plantation.objects.count(),
+        "nb_cultures": Culture.objects.count(),
+        "nb_conversations": Conversation.objects.count(),
+    }
+    derniers_utilisateurs = Utilisateur.objects.filter(is_staff=False).order_by("-date_joined")[:5]
+
+    return render(request, "users/dashboard_admin.html", {
+        "stats": stats,
+        "derniers_utilisateurs": derniers_utilisateurs,
+    })
+
+
+@admin_required
+def admin_liste_utilisateurs(request):
+    Utilisateur = get_user_model()
+    utilisateurs = Utilisateur.objects.filter(is_staff=False).order_by("-date_joined")
+    return render(request, "users/admin_utilisateurs_liste.html", {"utilisateurs": utilisateurs})
+
+
+@admin_required
+def admin_detail_utilisateur(request, pk):
+    Utilisateur = get_user_model()
+    utilisateur_cible = get_object_or_404(Utilisateur, pk=pk)
+    nb_simulations = Plantation.objects.filter(utilisateur=utilisateur_cible).count()
+
+    if request.method == "POST":
+        if "toggle_actif" in request.POST:
+            utilisateur_cible.is_active = not utilisateur_cible.is_active
+            utilisateur_cible.save()
+            messages.success(request, f"Compte {'activé' if utilisateur_cible.is_active else 'désactivé'}.")
+        elif "toggle_staff" in request.POST:
+            utilisateur_cible.is_staff = not utilisateur_cible.is_staff
+            utilisateur_cible.save()
+            messages.success(request, "Statut administrateur mis à jour.")
+        return redirect("admin_detail_utilisateur", pk=pk)
+
+    return render(request, "users/admin_utilisateur_detail.html", {
+        "utilisateur_cible": utilisateur_cible,
+        "nb_simulations": nb_simulations,
+    })
+
+
+@admin_required
+def admin_supprimer_utilisateur(request, pk):
+    Utilisateur = get_user_model()
+    utilisateur_cible = get_object_or_404(Utilisateur, pk=pk)
+    if request.method == "POST":
+        utilisateur_cible.delete()
+        messages.success(request, "Utilisateur supprimé.")
+    return redirect("admin_utilisateurs")
 
 # Create your views here.

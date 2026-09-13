@@ -1,0 +1,102 @@
+.badge-admin {
+  background: #E3A857;
+  color: #1F3D2B;
+  font-size: 0.6rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 20px;
+  margin-left: 0.4rem;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.stats-grille-5 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.tableau-admin-wrapper {
+  background: var(--carte);
+  border-radius: 14px;
+  overflow-x: auto;
+  box-shadow: 0 2px 10px rgba(31, 61, 43, 0.06);
+}
+
+.tableau-admin {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.tableau-admin th {
+  text-align: left;
+  padding: 1rem 1.2rem;
+  background: #E7EAD7;
+  color: var(--vert-foret);
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.tableau-admin td {
+  padding: 0.9rem 1.2rem;
+  border-bottom: 1px solid var(--bordure);
+  white-space: nowrap;
+}
+
+.tableau-admin tr:last-child td {
+  border-bottom: none;
+}
+
+.tableau-admin tr:hover td {
+  background: var(--fond);
+}
+
+.tableau-vide {
+  text-align: center;
+  color: var(--sous-texte);
+  padding: 2rem !important;
+}
+
+.btn-tableau {
+  display: inline-block;
+  padding: 0.4rem 0.85rem;
+  border-radius: 8px;
+  background: var(--vert-foret);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  margin-right: 0.4rem;
+}
+
+.btn-tableau:hover {
+  background: var(--vert-fonce);
+  text-decoration: none;
+  color: #fff;
+}
+
+.btn-tableau-danger {
+  background: #A0421F;
+}
+
+.badge-statut {
+  padding: 0.25rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.badge-actif {
+  background: #E7F0E4;
+  color: var(--vert-foret);
+}
+
+.badge-inactif {
+  background: #FBE9E2;
+  color: #A0421F;
+}

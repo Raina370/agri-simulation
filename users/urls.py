@@ -13,4 +13,7 @@ urlpatterns = [
     path("profil/modifier/", views.profil_modifier, name="profil_modifier"),
     path("profil/mot-de-passe/", views.ChangerMotDePasseView.as_view(), name="mot_de_passe"),
     path("profil/mot-de-passe/confirme/", views.MotDePasseConfirmeView.as_view(), name="mot_de_passe_confirme"),
+    path("gestion/utilisateurs/", views.admin_liste_utilisateurs, name="admin_utilisateurs"),
+    path("gestion/utilisateurs/<int:pk>/", views.admin_detail_utilisateur, name="admin_detail_utilisateur"),
+    path("gestion/utilisateurs/<int:pk>/supprimer/", views.admin_supprimer_utilisateur, name="admin_supprimer_utilisateur"),
 ]

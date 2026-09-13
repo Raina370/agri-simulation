@@ -17,53 +17,64 @@
             <p class="resultat-eyebrow">RAPPORT DE SIMULATION #{{ plantation.pk }}</p>
             <h1>Résultats {{ plantation.culture.nom }} - {{ plantation.region.nom }}</h1>
             <p class="resultats-meta">
-                {{ plantation.departement.nom }}, Région de l'{{ plantation.region.nom }}
-                • {{ plantation.sol.type_sol }}
+                {{ plantation.departement.nom }}, Région de l’{{ plantation.region.nom }}
+                • Sol {{ plantation.sol.type_sol }}
             </p>
         </div>
 
         <div class="resultats-header-actions">
             <a href="{% url 'creer_plantation' %}" class="btn-outline">
+                <i class='bx bx-plus-circle'></i>
                 Nouvelle simulation
             </a>
             <a href="{% url 'telecharger_pdf' plantation.pk %}" class="btn-primary">
-                <i class='bx bx-download'></i> Télécharger
+                <i class='bx bx-download'></i>
+                Télécharger
             </a>
         </div>
     </div>
 
-    <!-- ========== LIGNE 1 : RENDEMENT + RISQUE ========== -->
+    <!-- ========== LIGNE 1 : RENDEMENT + PRODUCTION + RISQUE ========== -->
     <div class="resultats-grid-top">
 
-        <!-- Card Rendement -->
+        <!-- Card Rendement + Production -->
         <div class="card-resultat card-rendement">
             <div class="card-rendement-content">
-                <p class="card-label">Rendement Estimé</p>
-                <div class="rendement-valeur">
-                    <span class="rendement-nombre">{{ resultat.rendement_estime }}</span>
-                    <span class="rendement-unite">Tonnes/ha</span>
+                <div class="metric-group">
+                    <p class="card-label">
+                        <i class='bx bx-leaf'></i>
+                        Rendement estimé
+                    </p>
+                    <div class="rendement-valeur">
+                        <span class="rendement-nombre">{{ resultat.rendement_estime }}</span>
+                        <span class="rendement-unite">t/ha</span>
+                    </div>
                 </div>
-                {% if plantation.culture.rendement_reference %}
-                <p class="rendement-comparaison">
-                    {% widthratio resultat.rendement_estime plantation.culture.rendement_reference 100 as pourcentage %}
-                    {% if pourcentage >= 100 %}
-                        +{{ pourcentage|add:"-100" }}% par rapport au potentiel de référence
-                    {% else %}
-                        {{ pourcentage }}% du potentiel de référence
-                    {% endif %}
-                </p>
-                {% endif %}
+
+                <div class="metric-divider"></div>
+
+                <div class="metric-group">
+                    <p class="card-label">
+                        <i class='bx bx-package'></i>
+                        Production estimée
+                    </p>
+                    <div class="production-valeur">
+                        <span class="production-nombre">{{ resultat.production_totale }}</span>
+                        <span class="production-unite">tonnes</span>
+                    </div>
+                </div>
             </div>
+
             <div class="card-rendement-icone">
-                <i class='bx bx-leaf'></i>
+                <i class='bx bx-spa'></i>
             </div>
         </div>
 
         <!-- Card Niveau de Risque -->
         <div class="card-resultat card-risque">
             <div class="card-risque-header">
-                <i class='bx bx-error-circle'></i>
-                <span>Niveau de Risque</span>
+                <i class='bx bx-shield-quarter'></i>
+                <span>Niveau de risque</span>
             </div>
 
             <div class="risque-cercle 
@@ -73,13 +84,6 @@
                 <span>{{ resultat.niveau_risque }}</span>
             </div>
 
-            <p class="risque-description">
-                {% if risques %}
-                    {{ risques.first.description }}
-                {% else %}
-                    Conditions analysées selon les données disponibles.
-                {% endif %}
-            </p>
         </div>
     </div>
 
@@ -89,15 +93,15 @@
         <!-- Conditions Climatiques -->
         <div class="card-resultat">
             <div class="card-header-soft">
-                <i class='bx bx-cloud'></i>
-                <span>Conditions Climatiques</span>
+                <i class='bx bx-cloud-rain'></i>
+                <span>Conditions climatiques</span>
             </div>
 
             <div class="info-list">
                 <div class="info-row">
                     <div class="info-label">
                         <i class='bx bx-thermometer'></i>
-                        Température Moyenne
+                        Température moyenne
                     </div>
                     <div class="info-value">
                         {% if resultat.temperature_estimee is not None %}
@@ -111,7 +115,7 @@
                 <div class="info-row">
                     <div class="info-label">
                         <i class='bx bx-droplet'></i>
-                        Précipitations Estimées
+                        Précipitations estimées
                     </div>
                     <div class="info-value">
                         {% if resultat.pluie_estimee is not None %}
@@ -124,7 +128,7 @@
 
                 <div class="info-row">
                     <div class="info-label">
-                        <i class='bx bx-sun'></i>
+                        <i class='bx bx-wind'></i>
                         Risque climatique
                     </div>
                     <div class="info-value">
@@ -137,8 +141,8 @@
         <!-- Résumé des Paramètres -->
         <div class="card-resultat">
             <div class="card-header-soft">
-                <i class='bx bx-list-ul'></i>
-                <span>Résumé des Paramètres</span>
+                <i class='bx bx-list-check'></i>
+                <span>Résumé des paramètres</span>
             </div>
 
             <div class="params-grid">
@@ -148,7 +152,7 @@
                 </div>
                 <div class="param-item">
                     <span class="param-label">SUPERFICIE</span>
-                    <span class="param-value">{{ plantation.superficie }} Hectares</span>
+                    <span class="param-value">{{ plantation.superficie }} ha</span>
                 </div>
                 <div class="param-item">
                     <span class="param-label">DATE DE SEMIS</span>
@@ -166,7 +170,7 @@
     <div class="card-recommandations">
         <div class="recommandations-header">
             <i class='bx bx-map-pin'></i>
-            <span>Recommandations Agricoles</span>
+            <span>Recommandations agricoles</span>
         </div>
         <ul class="recommandations-list">
             {% for recommandation in recommandations %}
@@ -177,10 +181,11 @@
         </ul>
     </div>
 
-    <!-- Bouton modifier (optionnel) -->
+    <!-- Bouton modifier -->
     <div class="resultats-footer-actions">
         <a href="{% url 'modifier_plantation' plantation.pk %}" class="btn-outline">
-            <i class='bx bx-edit'></i> Modifier cette simulation
+            <i class='bx bx-edit-alt'></i>
+            Modifier cette simulation
         </a>
     </div>
 

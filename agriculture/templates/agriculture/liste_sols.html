@@ -1,0 +1,60 @@
+{% extends "base_admin.html" %}
+
+{% block title %}Sols - Administration AgriSim{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-header">
+    <h1>Gestion des sols</h1>
+
+
+<a href="{% url 'admin_creer_sol' %}" class="btn-principal">
+    + Ajouter un sol
+</a>
+
+
+</div>
+
+<div class="tableau-admin-wrapper">
+    <table class="tableau-admin">
+        <thead>
+            <tr>
+                <th>Nom du sol</th>
+                <th>pH moyen</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+
+    <tbody>
+        {% for sol in sols %}
+        <tr>
+            <td>{{ sol.type_sol }}</td>
+            <td>{{ sol.ph_moyen }}</td>
+
+            <td>
+                <a href="{% url 'admin_modifier_sol' sol.id %}" class="btn-tableau">
+                    Modifier
+                </a>
+
+                <a href="{% url 'admin_supprimer_sol' sol.id %}"
+                   class="btn-tableau btn-danger">
+                    Supprimer
+                </a>
+            </td>
+        </tr>
+
+        {% empty %}
+        <tr>
+            <td colspan="3" class="tableau-vide">
+                Aucun sol enregistré.
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+</div>
+
+{% endblock %}
