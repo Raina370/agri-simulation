@@ -28,7 +28,9 @@ SECRET_KEY = config('SECRET_KEY') # ajout 2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)  # ajout 3
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',') # ajout 4
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
+
+CSRF_TRUSTED_ORIGINS = [ "https://agri-simulation-1.onrender.com",] # ajout 4
 
 # Application definition
 
