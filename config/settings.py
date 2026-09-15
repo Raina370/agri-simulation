@@ -15,6 +15,7 @@ from pathlib import Path
 from decouple import config # ajout 1
 
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,9 +29,24 @@ SECRET_KEY = config('SECRET_KEY') # ajout 2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)  # ajout 3
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default="localhost,127.0.0.1").split(',')
 
-CSRF_TRUSTED_ORIGINS = [ "https://agri-simulation-2.onrender.com",] # ajout 4
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip()
+    for origin in config(
+        'CSRF_TRUSTED_ORIGINS',
+        default='http://localhost:8000'
+    ).split(',')
+    if origin.strip()
+]
+
+SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=False, cast=bool)
+
+SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=False, cast=bool)
+
+CSRF_COOKIE_SECURE = config('CSRF_COOKIE_SECURE', default=False, cast=bool)
+
+SECURE_HSTS_SECONDS = config('SECURE_HSTS_SECONDS', default=0, cast=int)
 
 # Application definition
 
@@ -59,6 +75,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -92,6 +109,9 @@ DATABASES = {
         'PASSWORD': config('DB_PASSWORD'),           # ajout 6
         'HOST': config('DB_HOST'),
         'PORT': config('DB_PORT'),
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
     }
 }
 
@@ -133,6 +153,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS= [BASE_DIR / 'static']
 
 
@@ -141,9 +162,10 @@ STATICFILES_DIRS= [BASE_DIR / 'static']
 
 MAILERS = {
     'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+        'BACKEND': 'django.core.mail.backends.smtp.EmailBackend',
     },
 }
+
 
 LOGIN_URL = "connexion"
 LOGIN_REDIRECT_URL = "dashboard"
