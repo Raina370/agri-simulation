@@ -30,7 +30,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)  # ajout 3
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
 
-CSRF_TRUSTED_ORIGINS = [ "https://agri-simulation-1.onrender.com",] # ajout 4
+CSRF_TRUSTED_ORIGINS = [ "https://agri-simulation-2.onrender.com",] # ajout 4
 
 # Application definition
 
