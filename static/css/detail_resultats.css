@@ -1,6 +1,4 @@
-/* =========================================
-   PAGE RÉSULTATS - Version améliorée
-   ========================================= */
+/* PAGE RÉSULTATS - Version améliorée */
 
 .resultats-page {
     max-width: 980px;
@@ -404,7 +402,7 @@
     text-align: center;
 }
 
-/* ========== RESPONSIVE ========== */
+/*  RESPONSIVE */
 @media (max-width: 820px) {
     .resultats-grid-top,
     .resultats-grid-middle {

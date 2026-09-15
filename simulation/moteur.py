@@ -47,9 +47,7 @@ def calculer_simulation(plantation):
 
     culture = plantation.culture
 
-    # ---------------------------------------------------------
-    # 1. CONDITIONS CLIMATIQUES
-    # ---------------------------------------------------------
+    # CONDITIONS CLIMATIQUES
 
     temperature_estimee, pluie_estimee = (
         obtenir_conditions_climatiques(
@@ -59,10 +57,8 @@ def calculer_simulation(plantation):
         )
     )
 
-    # ---------------------------------------------------------
-    # 2. CALCUL DES PÉNALITÉS
-    # ---------------------------------------------------------
-
+    # CALCUL DES PÉNALITÉS
+   
     penalites = []
     explications = []
 
@@ -116,9 +112,7 @@ def calculer_simulation(plantation):
     penalites.append(penalite_date)
     explications.append(message_date)
 
-    # ---------------------------------------------------------
-    # 3. RISQUE CLIMATIQUE
-    # ---------------------------------------------------------
+    # RISQUE CLIMATIQUE
 
     risque_climatique = determiner_risque_climatique(
         culture,
@@ -134,9 +128,7 @@ def calculer_simulation(plantation):
     penalites.append(penalite_risque)
     explications.append(message_risque)
 
-    # ---------------------------------------------------------
-    # 4. CALCUL DE LA PÉNALITÉ TOTALE
-    # ---------------------------------------------------------
+    #  CALCUL DE LA PÉNALITÉ TOTALE
 
     penalite_totale = sum(penalites)
 
@@ -145,9 +137,7 @@ def calculer_simulation(plantation):
 
     facteur_global = 1.0 - penalite_totale
 
-    # ---------------------------------------------------------
-    # 5. RENDEMENT ESTIMÉ
-    # ---------------------------------------------------------
+    #  RENDEMENT ESTIMÉ
 
     rendement_reference = float(culture.rendement_reference)
 
@@ -156,9 +146,9 @@ def calculer_simulation(plantation):
         2
     )
 
-    # ---------------------------------------------------------
-    # 6. PRODUCTION TOTALE
-    # ---------------------------------------------------------
+   
+    #  PRODUCTION TOTALE
+   
 
     superficie = float(plantation.superficie)
 
@@ -167,23 +157,19 @@ def calculer_simulation(plantation):
         2
     )
 
-    # ---------------------------------------------------------
-    # 7. NIVEAU DE RISQUE FINAL
-    # ---------------------------------------------------------
+    #  NIVEAU DE RISQUE FINAL   
 
     niveau_risque = evaluer_niveau_risque(
         facteur_global
     )
 
-    # ---------------------------------------------------------
-    # 8. DATE DE RÉCOLTE
-    # ---------------------------------------------------------
+    #  DATE DE RÉCOLTE
+   
 
     date_recolte = estimer_date_recolte(plantation)
 
-    # ---------------------------------------------------------
-    # 9. ENREGISTREMENT DU RÉSULTAT
-    # ---------------------------------------------------------
+    #  ENREGISTREMENT DU RÉSULTAT
+   
 
     resultat, _ = Resultat.objects.update_or_create(
         plantation=plantation,
@@ -194,9 +180,8 @@ def calculer_simulation(plantation):
         },
     )
 
-    # ---------------------------------------------------------
-    # 10. ENREGISTREMENT DU RISQUE
-    # ---------------------------------------------------------
+    #  ENREGISTREMENT DU RISQUE
+    
 
     resultat.risques.all().delete()
 
@@ -205,9 +190,9 @@ def calculer_simulation(plantation):
         niveau=niveau_risque,
         description=message_risque
     )
-    # ---------------------------------------------------------
-    # 11. ENREGISTREMENT DES RECOMMANDATIONS
-    # ---------------------------------------------------------
+  
+    #  ENREGISTREMENT DES RECOMMANDATIONS
+   
 
     resultat.recommandations.all().delete()
 
@@ -264,9 +249,8 @@ def calculer_simulation(plantation):
             texte=texte
         )
 
-    # ---------------------------------------------------------
-    # 12. RETOUR DE LA SIMULATION
-    # ---------------------------------------------------------
+    # RETOUR DE LA SIMULATION
+   
 
     return {
         "rendement_estime": rendement_estime,

@@ -11,7 +11,7 @@
 {% block content %}
 <div class="resultats-page">
 
-    <!-- ========== HEADER ========== -->
+    <!-- HEADER-->
     <div class="resultats-header">
         <div class="resultats-header-left">
             <p class="resultat-eyebrow">RAPPORT DE SIMULATION #{{ plantation.pk }}</p>
@@ -34,7 +34,7 @@
         </div>
     </div>
 
-    <!-- ========== LIGNE 1 : RENDEMENT + PRODUCTION + RISQUE ========== -->
+    <!-- RENDEMENT + PRODUCTION + RISQUE -->
     <div class="resultats-grid-top">
 
         <!-- Card Rendement + Production -->
@@ -87,7 +87,7 @@
         </div>
     </div>
 
-    <!-- ========== LIGNE 2 : CLIMAT + PARAMÈTRES ========== -->
+    <!--  CLIMAT + PARAMÈTRES  -->
     <div class="resultats-grid-middle">
 
         <!-- Conditions Climatiques -->
@@ -155,8 +155,8 @@
                     <span class="param-value">{{ plantation.superficie }} ha</span>
                 </div>
                 <div class="param-item">
-                    <span class="param-label">DATE DE SEMIS</span>
-                    <span class="param-value">{{ plantation.date_plantation|date:"d M Y" }}</span>
+                    <span class="param-label">DATE ESTIMEE DE RECOLTE</span>
+                     <span class="param-value">{{ resultat.date_recolte|date:"d M Y" }}</span>
                 </div>
                 <div class="param-item">
                     <span class="param-label">TYPE DE SOL</span>
@@ -166,7 +166,7 @@
         </div>
     </div>
 
-    <!-- ========== RECOMMANDATIONS ========== -->
+    <!-- RECOMMANDATIONS -->
     <div class="card-recommandations">
         <div class="recommandations-header">
             <i class='bx bx-map-pin'></i>

@@ -1,6 +1,4 @@
-/* ============================================
-   SIDEBAR
-   ============================================ */
+/* SIDEBAR */
 .app-layout {
     display: flex;
     min-height: 100vh;
@@ -139,9 +137,7 @@
   color: #fff;
 }
 
-/* ============================================
-   ZONE DE CONTENU
-   ============================================ */
+/*ZONE DE CONTENU */
 .app-contenu {
     flex: 1;
     margin-left: 250px;
@@ -154,9 +150,7 @@
   margin-bottom: 1.5rem;
 }
 
-/* ============================================
-   BANNIÈRE DE BIENVENUE
-   ============================================ */
+/* BANNIÈRE DE BIENVENUE */
 .banniere-bienvenue {
   background: linear-gradient(135deg, #2F6B45 0%, #3C8354 55%, #4C9764 100%);
   border-radius: 18px;
@@ -262,9 +256,7 @@
   background: rgba(255, 255, 255, 0.6);
   color: var(--sous-texte);
 }
-/* ============================================
-   CARTES STATISTIQUES
-   ============================================ */
+/* CARTES STATISTIQUES*/
 
 .stats-grille {
   display: grid;
@@ -368,9 +360,7 @@
   margin: 0;
 }
 
-/* ============================================
-   DERNIÈRES SIMULATIONS
-   ============================================ */
+/* DERNIÈRES SIMULATIONS */
 
 .section-dernieres h2 {
   font-size: 1.2rem;
@@ -432,9 +422,7 @@
   }
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
+/* RESPONSIVE */
 
 @media (max-width: 720px) {
   .sidebar {
@@ -487,7 +475,7 @@
   }
 }
 
-/* ========== Dernières simulations - style cartes ========== */
+/*  Dernières simulations - style cartes  */
 
 .section-dernieres .sim-groupe {
   display: flex !important;
@@ -578,11 +566,7 @@
 }
 
 
-/* ============================================
-   NOUVELLE NAVIGATION MOBILE (menu burger)
-   Ce bloc est volontairement à la fin du fichier
-   pour prendre le dessus sur les anciennes règles.
-   ============================================ */
+/* NOUVELLE NAVIGATION MOBILE:menu burger */
 
 .burger-btn {
   display: none;

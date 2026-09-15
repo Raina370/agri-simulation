@@ -32,7 +32,7 @@ class Command(BaseCommand):
                     },
                 )
 
-                # --- Traitement des sols recommandés ---
+                # Traitement des sols recommandés
                 sols_texte = ligne.get("sols_recommandes", "")
                 if sols_texte:
                     noms_sols = self.decouper_sols(sols_texte)

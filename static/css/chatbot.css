@@ -1,6 +1,4 @@
-/* ============================================
-   LISTE DES CONVERSATIONS
-   ============================================ */
+/* LISTE DES CONVERSATIONS */
 
 .chatbot-header-bandeau {
   background: linear-gradient(135deg, #1F3D2B 0%, #2F6B45 55%, #3C8354 100%);
@@ -145,9 +143,7 @@
   flex-shrink: 0;
 }
 
-/* ============================================
-   CADRE DE DISCUSSION (bien distinct de la page)
-   ============================================ */
+/* CADRE DE DISCUSSION (bien distinct de la page) */
 
 .chat-page {
   max-width: 720px;

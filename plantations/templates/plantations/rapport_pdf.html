@@ -7,7 +7,7 @@
 </head>
 <body>
 
-    <!-- ========== EN-TÊTE ========== -->
+    <!-- entete-->
     <div class="header">
         <p class="eyebrow">Rapport de simulation #{{ plantation.pk }}</p>
         <h1>Résultats {{ plantation.culture.nom }} — {{ plantation.region.nom }}</h1>
@@ -16,7 +16,7 @@
         </p>
     </div>
 
-    <!-- ========== DÉTAILS DE LA PARCELLE ========== -->
+    <!--  DETAILS DE LA PARCELLE  -->
     <div class="section">
         <div class="section-title">Détails de la parcelle</div>
         <table class="info-table">
@@ -35,7 +35,7 @@
         </table>
     </div>
 
-    <!-- ========== RÉSULTATS ========== -->
+    <!-- RESULTATS -->
     <div class="section">
         <div class="section-title">Résultats de la simulation</div>
         <table class="info-table">
@@ -54,7 +54,7 @@
         </table>
     </div>
 
-    <!-- ========== RISQUES ========== -->
+    <!-- RISQUES -->
     <div class="section">
         <div class="section-title">Risques identifiés</div>
         {% if risques %}
@@ -76,7 +76,7 @@
         {% endif %}
     </div>
 
-    <!-- ========== RECOMMANDATIONS ========== -->
+    <!-- RECOMMANDATIONS-->
     <div class="section">
         <div class="section-title">Recommandations agricoles</div>
         {% if recommandations %}
@@ -90,7 +90,7 @@
         {% endif %}
     </div>
 
-    <!-- ========== PIED DE PAGE ========== -->
+    <!--  PIED DE PAGE -->
     <div class="footer">
         Généré par AgriSim Cameroon — {{ plantation.date_creation|date:"d/m/Y" }}
     </div>
