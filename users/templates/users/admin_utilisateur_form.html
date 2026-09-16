@@ -1,0 +1,72 @@
+{% extends "base_admin.html" %}
+{% load static %}
+
+{% block title %}
+    {% if mode == "ajouter" %}
+        Ajouter un utilisateur - Admin AgriSim
+    {% else %}
+        Modifier un utilisateur - Admin AgriSim
+    {% endif %}
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profil.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="profil-page">
+
+    {% if mode == "ajouter" %}
+        <h1>Ajouter un utilisateur</h1>
+    {% else %}
+        <h1>Modifier l'utilisateur</h1>
+    {% endif %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="carte-profil">
+
+        <form method="post">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit" class="btn-nouvelle-simulation">
+                <i class='bx bx-check'></i>
+
+                {% if mode == "ajouter" %}
+                    Créer le compte
+                {% else %}
+                    Enregistrer les modifications
+                {% endif %}
+
+            </button>
+
+        </form>
+
+    </div>
+
+    <p class="lien-secondaire">
+
+        {% if mode == "ajouter" %}
+            <a href="{% url 'admin_utilisateurs' %}">
+                ← Retour à la liste
+            </a>
+        {% else %}
+            <a href="{% url 'admin_detail_utilisateur' utilisateur_cible.pk %}">
+                ← Retour au profil
+            </a>
+        {% endif %}
+
+    </p>
+
+</div>
+
+{% endblock %}

@@ -3,30 +3,81 @@
 {% block title %}Utilisateurs - Admin AgriSim{% endblock %}
 
 {% block content %}
+
 <div class="dashboard-header">
-    <h1>Gestion des utilisateurs</h1>
+    <div>
+        <h1>Gestion des utilisateurs</h1>
+    </div>
+
+    <a href="{% url 'admin_ajouter_utilisateur' %}" class="btn-nouvelle-simulation">
+        <i class='bx bx-user-plus'></i>
+        Ajouter un utilisateur
+    </a>
 </div>
 
 <div class="tableau-admin-wrapper">
     <table class="tableau-admin">
         <thead>
-            <tr><th>Nom</th><th>Nom d'utilisateur</th><th>Email</th><th>Région</th><th>Statut</th><th>Inscrit le</th><th></th></tr>
+            <tr>
+                <th>Nom</th>
+                <th>Nom d'utilisateur</th>
+                <th>Email</th>
+                <th>Région</th>
+                <th>Statut</th>
+                <th>Inscrit le</th>
+                <th>Actions</th>
+            </tr>
         </thead>
+
         <tbody>
             {% for u in utilisateurs %}
             <tr>
                 <td>{{ u.first_name }} {{ u.last_name }}</td>
+
                 <td>{{ u.username }}</td>
+
                 <td>{{ u.email }}</td>
+
                 <td>{{ u.region }}</td>
-                <td>{% if u.is_active %}<span class="badge-statut badge-actif">Actif</span>{% else %}<span class="badge-statut badge-inactif">Désactivé</span>{% endif %}</td>
+
+                <td>
+                    {% if u.is_active %}
+                        <span class="badge-statut badge-actif">
+                            Actif
+                        </span>
+                    {% else %}
+                        <span class="badge-statut badge-inactif">
+                            Désactivé
+                        </span>
+                    {% endif %}
+                </td>
+
                 <td>{{ u.date_joined|date:"d/m/Y" }}</td>
-                <td><a href="{% url 'admin_detail_utilisateur' u.pk %}" class="btn-tableau">Gérer</a></td>
+
+                <td>
+                    <a href="{% url 'admin_detail_utilisateur' u.pk %}"
+                       class="btn-tableau">
+                        Gérer
+                    </a>
+
+                    <a href="{% url 'admin_modifier_utilisateur' u.pk %}"
+                       class="btn-tableau">
+                        Modifier
+                    </a>
+                </td>
             </tr>
+
             {% empty %}
-            <tr><td colspan="7" class="tableau-vide">Aucun utilisateur.</td></tr>
+
+            <tr>
+                <td colspan="7" class="tableau-vide">
+                    Aucun utilisateur.
+                </td>
+            </tr>
+
             {% endfor %}
         </tbody>
     </table>
 </div>
+
 {% endblock %}

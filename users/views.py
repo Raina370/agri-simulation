@@ -10,7 +10,7 @@ from plantations.models import Plantation
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 from django.urls import reverse_lazy
 from django.db.models import Sum, Count
-from .forms import InscriptionForm, ProfilForm
+from .forms import InscriptionForm, ProfilForm, AdminUtilisateurForm
 from plantations.models import Plantation
 from django.db.models import Count, Avg
 from django.contrib.auth import get_user_model
@@ -176,6 +176,70 @@ def admin_detail_utilisateur(request, pk):
         "utilisateur_cible": utilisateur_cible,
         "nb_simulations": nb_simulations,
     })
+@admin_required
+def admin_ajouter_utilisateur(request):
+    if request.method == "POST":
+        form = InscriptionForm(request.POST)
+
+        if form.is_valid():
+            utilisateur = form.save()
+            messages.success(
+                request,
+                f"Le compte de {utilisateur.get_full_name() or utilisateur.username} a été créé avec succès."
+            )
+            return redirect("admin_utilisateurs")
+
+    else:
+        form = InscriptionForm()
+
+    return render(
+        request,
+        "users/admin_utilisateur_form.html",
+        {
+            "form": form,
+            "mode": "ajouter",
+        }
+    )
+
+
+@admin_required
+def admin_modifier_utilisateur(request, pk):
+    Utilisateur = get_user_model()
+    utilisateur_cible = get_object_or_404(Utilisateur, pk=pk)
+
+    if request.method == "POST":
+        form = AdminUtilisateurForm(
+            request.POST,
+            instance=utilisateur_cible
+        )
+
+        if form.is_valid():
+            form.save()
+
+            messages.success(
+                request,
+                "Les informations de l'utilisateur ont été mises à jour avec succès."
+            )
+
+            return redirect(
+                "admin_detail_utilisateur",
+                pk=utilisateur_cible.pk
+            )
+
+    else:
+        form = AdminUtilisateurForm(
+            instance=utilisateur_cible
+        )
+
+    return render(
+        request,
+        "users/admin_utilisateur_form.html",
+        {
+            "form": form,
+            "utilisateur_cible": utilisateur_cible,
+            "mode": "modifier",
+        }
+    )
 
 
 @admin_required

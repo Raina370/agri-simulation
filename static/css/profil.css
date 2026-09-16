@@ -258,3 +258,180 @@
     max-width: 100%;
   }
 }
+
+/* =========================================================
+   FORMULAIRE ADMINISTRATEUR - AJOUT / MODIFICATION
+   Compatible avec admin_utilisateur_form.html
+   ========================================================= */
+
+.admin-formulaire-carte {
+    background: var(--carte);
+    border-radius: 14px;
+    padding: 1.8rem 2rem;
+    box-shadow: 0 2px 10px rgba(31, 61, 43, 0.06);
+}
+
+/* Formulaire */
+
+.admin-formulaire-carte form {
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+.admin-formulaire-carte form p {
+    margin: 0 0 1.15rem;
+    text-align: left;
+}
+
+/* Labels */
+
+.admin-formulaire-carte form label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--sous-texte);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.4rem;
+}
+
+/* Champs */
+
+.admin-formulaire-carte form input,
+.admin-formulaire-carte form select,
+.admin-formulaire-carte form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.75rem 0.85rem;
+    border: 1px solid var(--bordure);
+    border-radius: 9px;
+    background: var(--fond);
+    color: var(--texte);
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Focus */
+
+.admin-formulaire-carte form input:focus,
+.admin-formulaire-carte form select:focus,
+.admin-formulaire-carte form textarea:focus {
+    outline: none;
+    border-color: var(--vert-foret);
+    box-shadow: 0 0 0 3px rgba(47, 107, 69, 0.10);
+}
+
+/* Zone de texte */
+
+.admin-formulaire-carte form textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+/* Erreurs Django */
+
+.admin-formulaire-carte form .errorlist {
+    list-style: none;
+    padding: 0;
+    margin: 0.35rem 0 0;
+    color: #A0421F;
+    font-size: 0.78rem;
+}
+
+.admin-formulaire-carte form .errorlist li {
+    margin-bottom: 0.2rem;
+}
+
+/* Texte d'aide Django */
+
+.admin-formulaire-carte form .helptext {
+    display: block;
+    margin-top: 0.35rem;
+    color: var(--sous-texte);
+    font-size: 0.75rem;
+    line-height: 1.4;
+}
+
+/* Bouton Enregistrer / Créer */
+
+.admin-formulaire-carte .btn-nouvelle-simulation {
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.5rem;
+}
+
+/* =========================================================
+   BOUTON AJOUTER UTILISATEUR
+   ========================================================= */
+
+.dashboard-header .btn-nouvelle-simulation {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    text-decoration: none;
+}
+
+/* =========================================================
+   ACTIONS DU TABLEAU
+   ========================================================= */
+
+.tableau-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.tableau-actions .btn-tableau {
+    margin-right: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    white-space: nowrap;
+}
+
+/* Bouton Modifier */
+
+.btn-tableau-modifier {
+    background: #E3A857;
+    color: #1F3D2B;
+}
+
+.btn-tableau-modifier:hover {
+    background: #D49640;
+    color: #1F3D2B;
+    text-decoration: none;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 640px) {
+
+    .admin-formulaire-carte {
+        padding: 1.25rem;
+    }
+
+    .admin-formulaire-carte form {
+        max-width: 100%;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .dashboard-header .btn-nouvelle-simulation {
+        width: 100%;
+    }
+
+    .tableau-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .tableau-actions .btn-tableau {
+        justify-content: center;
+        margin-right: 0;
+    }
+}

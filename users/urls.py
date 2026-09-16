@@ -16,4 +16,6 @@ urlpatterns = [
     path("gestion/utilisateurs/", views.admin_liste_utilisateurs, name="admin_utilisateurs"),
     path("gestion/utilisateurs/<int:pk>/", views.admin_detail_utilisateur, name="admin_detail_utilisateur"),
     path("gestion/utilisateurs/<int:pk>/supprimer/", views.admin_supprimer_utilisateur, name="admin_supprimer_utilisateur"),
+    path("gestion/utilisateurs/ajouter/",views.admin_ajouter_utilisateur,name="admin_ajouter_utilisateur"),
+    path("gestion/utilisateurs/<int:pk>/modifier/",views.admin_modifier_utilisateur,name="admin_modifier_utilisateur"),
 ]

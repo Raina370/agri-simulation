@@ -87,3 +87,51 @@ class ProfilForm(forms.ModelForm):
 
     def clean_telephone(self):
         return valider_telephone(self.cleaned_data.get("telephone"))
+class AdminUtilisateurForm(forms.ModelForm):
+    region = forms.ChoiceField(choices=REGIONS_CAMEROUN, label="Région")
+
+    class Meta:
+        model = Utilisateur
+        fields = [
+            "last_name",
+            "first_name",
+            "date_naissance",
+            "sexe",
+            "region",
+            "ville",
+            "telephone",
+            "description",
+            "username",
+        ]
+        widgets = {
+            "date_naissance": forms.DateInput(attrs={"type": "date"}),
+            "description": forms.Textarea(
+                attrs={
+                    "rows": 4,
+                    "placeholder": "Parlez de vous, de votre exploitation..."
+                }
+            ),
+        }
+        labels = {
+            "last_name": "Nom",
+            "first_name": "Prénom",
+            "date_naissance": "Date de naissance",
+            "sexe": "Sexe",
+            "ville": "Ville",
+            "telephone": "Téléphone",
+            "description": "Bio",
+            "username": "Nom d'utilisateur",
+        }
+
+        help_texts = {
+            "username": "",
+        }
+    def clean_date_naissance(self):
+        return valider_date_naissance(
+            self.cleaned_data.get("date_naissance")
+        )
+
+    def clean_telephone(self):
+        return valider_telephone(
+            self.cleaned_data.get("telephone")
+        )
