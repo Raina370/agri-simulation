@@ -18,6 +18,8 @@ from .decorators import admin_required
 from plantations.models import Plantation
 from chatbot.models import Conversation
 
+def demarrage(request):
+    return render(request, "demarrage.html")
 
 def accueil(request):
     cultures = Culture.objects.all()
