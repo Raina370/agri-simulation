@@ -35,7 +35,7 @@ CSRF_TRUSTED_ORIGINS = [
     origin.strip()
     for origin in config(
         'CSRF_TRUSTED_ORIGINS',
-        default='http://localhost:8000'
+        default='https://*.vercel.app'
     ).split(',')
     if origin.strip()
 ]
