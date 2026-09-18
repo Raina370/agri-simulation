@@ -1,35 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/accueil.css' %}">
-<link rel="stylesheet" href="{% static 'css/demarrage.css' %}">
-{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/accueil.css' %}">{% endblock %}
 {% block title %}AgriSim Cameroon - Simulez votre plantation{% endblock %}
 
 {% block content %}
-<div class="demarrage" id="demarrage">
-
-    <div class="logo-container">
-        <img
-            src="{% static 'images/logo/agrisim_logo.png' %}"
-            alt="Logo AgriSim"
-            class="logo"
-        >
-    </div>
-
-    <div class="slogan-container">
-        <p class="slogan">
-            Simulez aujourd'hui, produisez demain.
-        </p>
-    </div>
-
-    <div class="chargement">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-
-</div>
 
 <section class="hero">
     <div class="hero-contenu">
@@ -92,5 +66,5 @@
     <p>Rejoignez des centaines d'agriculteurs qui utilisent AgriSim pour sécuriser leurs récoltes.</p>
     <a href="{% url 'inscription' %}" class="btn-cta"><i class='bx bx-user-plus'></i> Créer un compte </a>
 </section>
-<script src="{% static 'js/demarrage.js' %}"></script>
+
 {% endblock %}
