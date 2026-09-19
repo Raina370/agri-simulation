@@ -18,12 +18,10 @@ class InscriptionForm(UserCreationForm):
     class Meta:
         model = Utilisateur
         fields = [
-    "last_name", "first_name", "date_naissance", "sexe",
-    "region", "ville", "telephone", "email", "username",
+    "last_name", "first_name",  
+     "telephone",  "username",
 ]
-        widgets = {
-            "date_naissance": forms.DateInput(attrs={"type": "date"}),
-        }
+        
         labels = {
             "last_name": "Nom",
             "first_name": "Prénom",
@@ -36,19 +34,6 @@ class InscriptionForm(UserCreationForm):
             "username": "Nom d'utilisateur",
             
         }
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        # Empêche de choisir une date dans l'année en cours ou future
-        derniere_date_autorisee = date(date.today().year - 1, 12, 31)
-        self.fields["date_naissance"].widget.attrs["max"] = derniere_date_autorisee.isoformat()
-
-    def clean_date_naissance(self):
-        naissance = self.cleaned_data.get("date_naissance")
-        if naissance and naissance.year >= date.today().year:
-            raise forms.ValidationError(
-                "La date de naissance doit être antérieure à l'année en cours."
-            )
-        return naissance
 
     def clean_telephone(self):
         telephone = self.cleaned_data.get("telephone")

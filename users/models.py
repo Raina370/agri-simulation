@@ -7,11 +7,11 @@ class Utilisateur(AbstractUser):
         FEMME = 'F','Femme'
     last_name = models.CharField(max_length=150)
     first_name = models.CharField(max_length=150)
-    date_naissance= models.DateField()
-    sexe= models.CharField(max_length=1, choices=Sexe.choices)
-    ville= models.CharField(max_length=100)
+    date_naissance= models.DateField(null=True, blank=True)
+    sexe= models.CharField(max_length=1, choices=Sexe.choices,blank=True )
+    ville= models.CharField(max_length=100, blank=True)
     telephone= models.CharField(max_length=20)
-    region= models.CharField(max_length=100)
+    region= models.CharField(max_length=100, blank=True)
     description= models.TextField(blank=True)
 
     REQUIRED_FIELDS = ['email', 'date_naissance', 'sexe', 'ville', 'telephone', 'region']
