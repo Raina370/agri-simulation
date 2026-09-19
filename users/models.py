@@ -5,7 +5,8 @@ class Utilisateur(AbstractUser):
     class Sexe(models.TextChoices):
         HOMME = 'H','Homme'
         FEMME = 'F','Femme'
-
+    last_name = models.CharField(max_length=150)
+    first_name = models.CharField(max_length=150)
     date_naissance= models.DateField()
     sexe= models.CharField(max_length=1, choices=Sexe.choices)
     ville= models.CharField(max_length=100)

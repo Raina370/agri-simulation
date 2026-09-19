@@ -28,7 +28,7 @@ const messagesToasts = [
         toast.remove();
         indexToast = (indexToast + 1) % messagesToasts.length;
         afficherProchainToast();
-      }, 1000);
+      }, 3000);
     }, 7000);
   }
 
